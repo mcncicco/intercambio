@@ -28,7 +28,7 @@ import { CityPage } from '../pages/city/city';
 import { SignupPage } from '../pages/signup/signup';
 
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook';
@@ -36,7 +36,7 @@ import { IntroPageModule } from '../pages/intro/intro.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 
 import { UserProvider } from '../providers/user/userProvider';
-import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZIDWA8LMA4iTuuncR02t3a4JbuL0eYqE",
@@ -57,9 +57,9 @@ const firebaseConfig = {
     SigninPage,
     SignupPage,
     ResetpasswordPage,
-    SigninWithEmailPage,
     MapsPage,
-    CityPage,
+    CityPage
+    
   ],
   imports: [
     BrowserModule,
@@ -79,7 +79,6 @@ const firebaseConfig = {
     TabsPage,
     SigninPage,
     ResetpasswordPage,
-    SigninWithEmailPage,
     MapsPage,
     CityPage,
   ],

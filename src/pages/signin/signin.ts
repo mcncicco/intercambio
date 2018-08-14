@@ -3,7 +3,6 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { NgForm } from '@angular/forms';
-import { SigninWithEmailPage } from '../signinwithemail/signinwithemail';
 import { TabsPage } from '../tabs/tabs';
 import { User } from '../../providers/user/user';
 import { ConfigProvider } from '../../providers/auth-service/config';
@@ -55,7 +54,7 @@ export class SigninPage {
   }
 
   signInWithEmailPage() {
-    this.navCtrl.push(SigninWithEmailPage);
+    //this.navCtrl.push(SigninWithEmailPage);
   }
 
   signInWithGoogle() {
