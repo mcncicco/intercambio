@@ -1,81 +1,132 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {Platform} from "ionic-angular";
-import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from "@ionic-native/google-maps";
-
+import { Component, NgZone } from '@angular/core';
+import { NavController, App } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { SigninPage } from '../signin/signin';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { CityProvider } from '../../providers/city/city';
+import { CityPage } from '../city/city';
+import { MapsProvider } from '../../providers/maps/maps';
+import { MapsPage } from '../maps/maps';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  displayName: string;
+  photoURL: string;
+  email: string;
 
-  @ViewChild('map')
-  private mapElement:ElementRef;
-  private map:GoogleMap;
-  private location:LatLng;
-  private locations:Array<any> = [];
+  public refresher;
+  public isRefreshing: boolean = false;
 
-  constructor(private platform:Platform,
-              private googleMaps:GoogleMaps) {
-    this.location = new LatLng(42.346903, -71.135101);
+  public listCities = new Array<any>();
 
+  constructor(public navCtrl: NavController,
+    private authServiceProvider: AuthServiceProvider,
+    private afAhth: AngularFireAuth,
+    private cityProvider: CityProvider,
+    private app: App,
+    private mapsProvider: MapsProvider,
+    private tabs: TabsPage
 
-    //Add cluster locations
-    this.locations.push({position: {lat: 42.346903, lng: -71.135101}});
-    this.locations.push({position: {lat: 42.342525, lng: -71.145943}});
-    this.locations.push({position: {lat: 42.345792, lng: -71.138167}});
-    this.locations.push({position: {lat: 42.320684, lng: -71.182951}});
-    this.locations.push({position: {lat: 42.359076, lng: -71.0645484}});
-    this.locations.push({position: {lat: 42.36, lng: -71.1}});
-  }
+  ) {
+    const authObserver = afAhth.authState.subscribe(user => {
+      this.displayName = "";
+      this.photoURL = "";
+      this.email = "";
 
-  ionViewDidLoad() {
-    this.platform.ready().then(() => {
-      let element = this.mapElement.nativeElement;
-      this.map = this.googleMaps.create(element);
-
-      this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        let options = {
-          target: this.location,
-          zoom: 8
-        };
-
-        this.map.moveCamera(options);
-        //setTimeout(() => {this.addMarker()}, 2000);
-        setTimeout(() => {this.addCluster()}, 500);
-      });
-    });
-  }
-
-  addMarker() {
-    this.map.addMarker({
-      title: 'My Marker',
-      icon: 'blue',
-      animation: 'DROP',
-      position: {
-        lat: this.location.lat,
-        lng: this.location.lng
+      if (user) {
+        this.displayName = user.displayName;
+        this.photoURL = user.photoURL;
+        this.email = user.email;
+        authObserver.unsubscribe();
       }
     })
-    .then(marker => {
-      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-        alert('Marker Clicked');
-      });
-    });
+
+
   }
 
-  addCluster() {
-    this.map.addMarkerCluster({
-      markers: this.locations,
-      icons: [
-        {min: 2, max: 100, url: "./assets/icon/blue-dot.png", anchor: {x: 16, y: 16}}
-      ]
-    })
-    .then((markerCluster) => {
-      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((cluster: any) => {
-        console.log('click 2');
-        alert('cluster was clicked.');
-      });
-    });
+  verNoMapa(nomeCidade:string) {
+    this.navCtrl.push(MapsPage, {nomeCidade});
   }
+
+  openDetails(nomeCidade: string) {
+    console.log('home' + nomeCidade);
+    this.navCtrl.push(CityPage, { nomeCidade });
+  }
+
+  getCities() {
+
+    this.cityProvider.getAllCities().subscribe(
+      data => {
+//        console.log(data);
+        this.listCities = data;
+        /*const response = (data as any);
+        console.log(response);
+        const objeto_retorno = JSON.parse(response._body);
+        console.log(objeto_retorno);
+        this.listCities = objeto_retorno;*/
+      });
+  }
+
+  signOut() {
+    this.authServiceProvider.signOut().then(() => {
+      this.app.getRootNav().setRoot(SigninPage);
+
+    })
+      .catch((error) => {
+        console.error(error);
+        this.navCtrl.setRoot(SigninPage);
+      });
+    this.navCtrl.setRoot(SigninPage);
+  }
+
+  doRefresh(refresher) {
+    this.isRefreshing = refresher;
+    this.isRefreshing = true;
+    console.log('Begin async operation', refresher);
+
+
+    if (this.isRefreshing) {
+      refresher.complete();
+      this.isRefreshing = false;
+    }
+
+  }
+
+  ionViewDidEnter() {
+    this.getCities();
+    console.log("HomePage");
+  }
+
+
+
+
+  public horaRecife = null;
+  getHour(nomeCidade: string) {
+    console.log("GETHOUR");
+    //console.log(this.horaRecife); 
+    if (this.horaRecife == null) {
+      /*console.log("if");
+      this.cityProvider.getHour().subscribe(
+        data => {
+          console.log(data);
+          const response = (data as any);
+          console.log(response.formatted.string);
+          console.log(JSON.stringify(response));
+          console.log(JSON.stringify(response.formatted).split(" ")[1]);
+          this.horaRecife = JSON.stringify(response.formatted).split(" ")[1];
+          
+        }, error => {
+          console.log(error);
+        }
+      )*/
+
+    }
+    return this.horaRecife;
+  }
+
+
 }

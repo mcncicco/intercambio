@@ -37,6 +37,9 @@ import { ProfilePageModule } from '../pages/profile/profile.module';
 
 import { UserProvider } from '../providers/user/userProvider';
 
+import {Geolocation} from '@ionic-native/geolocation';
+import { PersonPage } from '../pages/person/person';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZIDWA8LMA4iTuuncR02t3a4JbuL0eYqE",
@@ -58,8 +61,8 @@ const firebaseConfig = {
     SignupPage,
     ResetpasswordPage,
     MapsPage,
-    CityPage
-    
+    CityPage,
+    PersonPage
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ const firebaseConfig = {
     ResetpasswordPage,
     MapsPage,
     CityPage,
+    PersonPage
   ],
   providers: [
     StatusBar,
@@ -91,6 +95,7 @@ const firebaseConfig = {
     AngularFireAuth,
     GooglePlus,
     CityProvider,
+    Geolocation,
     MapsProvider,
     UserProvider,
     Facebook,
