@@ -1,18 +1,30 @@
-<!--
-  Generated template for the IntroPage page.
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams}from 'ionic-angular';
+import { SigninPage } from '../signin/signin';
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+/**
+ * Generated class for the IntroPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
-  <ion-navbar>
-    <ion-title>intro</ion-title>
-  </ion-navbar>
+@IonicPage()
+@Component({
+  selector: 'page-intro',
+  templateUrl: 'intro.html',
+})
+export class IntroPage {
 
-</ion-header>
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad IntroPage');
+  }
 
-<ion-content padding>
+  goToLoginPage(){
+    this.navCtrl.setRoot(SigninPage);
+  }
 
-</ion-content>
+}

@@ -72,6 +72,7 @@ export class MapsPage {
     this.map.addMarker({
       title: 'My Marker',
       icon: 'place',
+      label: 'My label',
       animation: 'DROP',
       position: {
         lat: this.location.lat,
