@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {Platform, NavController} from "ionic-angular";
+import {Platform, NavController, NavParams} from "ionic-angular";
 import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
 import { ConfigProvider } from '../../providers/auth-service/config';
@@ -19,6 +19,7 @@ export class MapsPage {
   latSum: any;
   lngSum: any;
   countLocations: any;
+  nomeCidade:string;
 
   @ViewChild('map')
   private mapElement:ElementRef;
@@ -32,7 +33,8 @@ export class MapsPage {
               public configProvider: ConfigProvider,
               public mapsProvider: MapsProvider,
               public cityProvider: CityProvider,
-              public navCtrl: NavController
+              public navCtrl: NavController,
+              private navParams: NavParams
             ) {
     
   }
@@ -52,8 +54,7 @@ export class MapsPage {
       this.map = this.googleMaps.create(element);
 
       this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        
-        this.location = new LatLng((this.latSum/this.countLocations), (this.lngSum/this.countLocations));
+        this.setLocalizacaoInicial();
         let options = {
           target: this.location,
           zoom: 3
@@ -66,6 +67,17 @@ export class MapsPage {
       });
     });
   }
+  setLocalizacaoInicial(){
+    this.nomeCidade = this.navParams.get('nomeCidade');
+    if (this.nomeCidade) {
+      this.cityProvider.getCity(this.nomeCidade).subscribe(c => {
+        this.location = new LatLng(c.latitude, c.longitude);
+      });
+    }else{
+        this.location = new LatLng((this.latSum/this.countLocations), (this.lngSum/this.countLocations));
+    }
+  }
+  
 
   addCity() {
     console.log(this.map);
