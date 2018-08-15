@@ -39,6 +39,9 @@ import { UserProvider } from '../providers/user/userProvider';
 
 import {Geolocation} from '@ionic-native/geolocation';
 import { PersonPage } from '../pages/person/person';
+import { RoomPage } from '../pages/room/room';
+import { AddRoomPage } from '../pages/add-room/add-room';
+import { ChatPage } from '../pages/chat/chat';
 
 
 const firebaseConfig = {
@@ -62,7 +65,11 @@ const firebaseConfig = {
     ResetpasswordPage,
     MapsPage,
     CityPage,
-    PersonPage
+    PersonPage,
+    RoomPage,
+    AddRoomPage,
+    ChatPage
+    
   ],
   imports: [
     BrowserModule,
@@ -84,7 +91,10 @@ const firebaseConfig = {
     ResetpasswordPage,
     MapsPage,
     CityPage,
-    PersonPage
+    PersonPage,
+    RoomPage,
+    AddRoomPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
