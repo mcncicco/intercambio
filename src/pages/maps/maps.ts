@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {Platform, NavController, NavParams} from "ionic-angular";
-import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from "@ionic-native/google-maps";
+import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker, MarkerCluster, HtmlInfoWindow} from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
 import { ConfigProvider } from '../../providers/auth-service/config';
 import { MapsProvider } from '../../providers/maps/maps';
@@ -20,7 +20,7 @@ export class MapsPage {
   lngSum: any;
   countLocations: any;
   nomeCidade:string;
-
+  
   @ViewChild('map')
   private mapElement:ElementRef;
   private map:GoogleMap;
@@ -107,18 +107,40 @@ export class MapsPage {
       ]
     })
     .then((markerCluster) => {
-      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((cluster: any) => {
-        let nomeCidade = "asdf";
-        this.navCtrl.push(PersonPage, {nomeCidade} );
+      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
+        console.log(marker);
+        console.log(marker.title);
+        
       });
     });
+  }
+
+  setMarkers() {
+    console.log("setMarkers");
+    this.latSum = 0;
+    this.lngSum = 0;
+    this.countLocations = 0;
+    this.mapsProvider.getAll().subscribe(items => {
+      items.forEach(item => {
+        //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
+        
+        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:"sdaf"});
+      
+        this.latSum = this.latSum + item.latitude;
+        this.lngSum = this.lngSum + item.longitude;
+        this.countLocations = this.countLocations + 1;
+
+      });
+      
+    });
+    
   }
   getPosition() {
     console.log("getPosition");
 
     this.geolocation.getCurrentPosition()
       .then((resp) => {
-        this.locations.push({position: {lat: resp.coords.latitude, lng: resp.coords.longitude}});
+        //this.locations.push({position: {lat: resp.coords.latitude, lng: resp.coords.longitude}});
         
       }).catch((error) => {
         console.log(error);
@@ -136,26 +158,7 @@ export class MapsPage {
 
   }
 
-  setMarkers() {
-    console.log("setMarkers");
-    this.latSum = 0;
-    this.lngSum = 0;
-    this.countLocations = 0;
-    this.mapsProvider.getAll().subscribe(items => {
-      items.forEach(item => {
-        //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
-        
-        this.locations.push({position: {lat: item.latitude, lng: item.longitude}});
-        
-        this.latSum = this.latSum + item.latitude;
-        this.lngSum = this.lngSum + item.longitude;
-        this.countLocations = this.countLocations + 1;
-
-      });
-      
-    });
-    
-  }
+  
   setCities() {
     console.log("setCities");
 
