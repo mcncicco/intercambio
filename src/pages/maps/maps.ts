@@ -97,7 +97,8 @@ export class MapsPage {
     .then((markerCluster) => {
       markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((cluster: any) => {
         let nomeCidade = "asdf";
-        this.navCtrl.push(PersonPage, {nomeCidade} );
+        cluster.setTitle(cluster.get("label"));
+        cluster.showInfoWindow();
       });
     });
   }
@@ -133,7 +134,8 @@ export class MapsPage {
       items.forEach(item => {
         //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
         
-        this.locations.push({position: {lat: item.latitude, lng: item.longitude}});
+        this.locations.push({position: {lat: item.latitude, lng: item.longitude},
+          label: item.email});
         
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;

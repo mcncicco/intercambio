@@ -32,7 +32,7 @@ export class MyApp {
         authObserver.unsubscribe();
       }else{
         
-        this.rootPage = SigninPage;
+        this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }
       authObserver.unsubscribe();

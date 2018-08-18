@@ -103,4 +103,5 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="888576883410-rf137bnbpenuge49v3i0t9bfofq46gqr.apps.googleusercontent.com" />
     </plugin>
     <engine name="ios" spec="~4.3.1" />
+    <engine name="android" spec="7.0.0" />
 </widget>

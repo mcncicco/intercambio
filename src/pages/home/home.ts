@@ -8,6 +8,7 @@ import { CityPage } from '../city/city';
 import { MapsProvider } from '../../providers/maps/maps';
 import { MapsPage } from '../maps/maps';
 import { TabsPage } from '../tabs/tabs';
+import { ChatPage } from '../chat/chat';
 
 @Component({
   selector: 'page-home',
@@ -28,24 +29,14 @@ export class HomePage {
     private afAhth: AngularFireAuth,
     private cityProvider: CityProvider,
     private app: App,
-    private mapsProvider: MapsProvider,
-    private tabs: TabsPage
+    private mapsProvider: MapsProvider
 
   ) {
-    const authObserver = afAhth.authState.subscribe(user => {
-      this.displayName = "";
-      this.photoURL = "";
-      this.email = "";
+    
 
-      if (user) {
-        this.displayName = user.displayName;
-        this.photoURL = user.photoURL;
-        this.email = user.email;
-        authObserver.unsubscribe();
-      }
-    })
-
-
+  }
+  joinChat(key:string){
+    this.navCtrl.push(ChatPage, {key});
   }
 
   verNoMapa(nomeCidade:string) {
