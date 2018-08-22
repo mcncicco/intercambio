@@ -108,8 +108,11 @@ export class MapsPage {
     })
     .then((markerCluster) => {
       markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
-        console.log(marker);
-        console.log(marker.title);
+        let latLng: LatLng = marker[0];
+        let markerClick: Marker = marker[1];
+        let emailUsuario : string = markerClick.getTitle();
+        console.log(emailUsuario);
+        this.navCtrl.push(PersonPage, {emailUsuario} );
         
       });
     });
@@ -124,7 +127,7 @@ export class MapsPage {
       items.forEach(item => {
         //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
         
-        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:"sdaf"});
+        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:item.email});
       
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
