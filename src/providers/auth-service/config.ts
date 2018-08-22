@@ -28,6 +28,7 @@ export class ConfigProvider {
 
     if(showSlide){
       config.showSlide = showSlide;
+      
     }
     if(email){
       config.email = email;
@@ -38,7 +39,7 @@ export class ConfigProvider {
     if(photoURL){
       config.photoURL = photoURL.replace("/","_b_");
     }
-    
+    console.log("Setando config"+config);
 
     localStorage.setItem(config_key_name, JSON.stringify(config));
 

@@ -132,7 +132,6 @@ export class MapsPage {
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
         this.countLocations = this.countLocations + 1;
-
       });
       
     });
@@ -161,7 +160,6 @@ export class MapsPage {
 
   }
 
-  
   setCities() {
     console.log("setCities");
 
