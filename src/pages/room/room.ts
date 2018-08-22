@@ -15,7 +15,7 @@ import { ChatPage } from '../chat/chat';
 export class RoomPage {
 
   rooms = [];
-ref = firebase.database().ref('chatrooms/');
+  ref = firebase.database().ref('chatrooms/');
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.ref.on('value', resp => {

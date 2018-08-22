@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {Platform, NavController} from "ionic-angular";
-import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from "@ionic-native/google-maps";
+import {Platform, NavController, NavParams} from "ionic-angular";
+import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker, MarkerCluster, HtmlInfoWindow} from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
 import { ConfigProvider } from '../../providers/auth-service/config';
 import { MapsProvider } from '../../providers/maps/maps';
@@ -19,7 +19,8 @@ export class MapsPage {
   latSum: any;
   lngSum: any;
   countLocations: any;
-
+  nomeCidade:string;
+  
   @ViewChild('map')
   private mapElement:ElementRef;
   private map:GoogleMap;
@@ -32,7 +33,8 @@ export class MapsPage {
               public configProvider: ConfigProvider,
               public mapsProvider: MapsProvider,
               public cityProvider: CityProvider,
-              public navCtrl: NavController
+              public navCtrl: NavController,
+              private navParams: NavParams
             ) {
     
   }
@@ -52,8 +54,7 @@ export class MapsPage {
       this.map = this.googleMaps.create(element);
 
       this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        
-        this.location = new LatLng((this.latSum/this.countLocations), (this.lngSum/this.countLocations));
+        this.setLocalizacaoInicial();
         let options = {
           target: this.location,
           zoom: 3
@@ -66,6 +67,17 @@ export class MapsPage {
       });
     });
   }
+  setLocalizacaoInicial(){
+    this.nomeCidade = this.navParams.get('nomeCidade');
+    if (this.nomeCidade) {
+      this.cityProvider.getCity(this.nomeCidade).subscribe(c => {
+        this.location = new LatLng(c.latitude, c.longitude);
+      });
+    }else{
+        this.location = new LatLng((this.latSum/this.countLocations), (this.lngSum/this.countLocations));
+    }
+  }
+  
 
   addCity() {
     console.log(this.map);
@@ -95,19 +107,47 @@ export class MapsPage {
       ]
     })
     .then((markerCluster) => {
+<<<<<<< HEAD
       markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((cluster: any) => {
         let nomeCidade = "asdf";
         cluster.setTitle(cluster.get("label"));
         cluster.showInfoWindow();
+=======
+      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
+        console.log(marker);
+        console.log(marker.title);
+        
       });
     });
+  }
+
+  setMarkers() {
+    console.log("setMarkers");
+    this.latSum = 0;
+    this.lngSum = 0;
+    this.countLocations = 0;
+    this.mapsProvider.getAll().subscribe(items => {
+      items.forEach(item => {
+        //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
+        
+        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:"sdaf"});
+      
+        this.latSum = this.latSum + item.latitude;
+        this.lngSum = this.lngSum + item.longitude;
+        this.countLocations = this.countLocations + 1;
+
+>>>>>>> 7de0b521ea1246d39794aa7a5c3537c390ec1175
+      });
+      
+    });
+    
   }
   getPosition() {
     console.log("getPosition");
 
     this.geolocation.getCurrentPosition()
       .then((resp) => {
-        this.locations.push({position: {lat: resp.coords.latitude, lng: resp.coords.longitude}});
+        //this.locations.push({position: {lat: resp.coords.latitude, lng: resp.coords.longitude}});
         
       }).catch((error) => {
         console.log(error);
@@ -125,6 +165,7 @@ export class MapsPage {
 
   }
 
+<<<<<<< HEAD
   setMarkers() {
     console.log("setMarkers");
     this.latSum = 0;
@@ -146,6 +187,9 @@ export class MapsPage {
     });
     
   }
+=======
+  
+>>>>>>> 7de0b521ea1246d39794aa7a5c3537c390ec1175
   setCities() {
     console.log("setCities");
 

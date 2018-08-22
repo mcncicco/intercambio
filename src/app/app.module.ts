@@ -42,6 +42,7 @@ import { PersonPage } from '../pages/person/person';
 import { RoomPage } from '../pages/room/room';
 import { AddRoomPage } from '../pages/add-room/add-room';
 import { ChatPage } from '../pages/chat/chat';
+import { SettingsPage } from '../pages/settings/settings';
 
 
 const firebaseConfig = {
@@ -68,7 +69,8 @@ const firebaseConfig = {
     PersonPage,
     RoomPage,
     AddRoomPage,
-    ChatPage
+    ChatPage,
+    SettingsPage
     
   ],
   imports: [
@@ -94,7 +96,8 @@ const firebaseConfig = {
     PersonPage,
     RoomPage,
     AddRoomPage,
-    ChatPage
+    ChatPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
@@ -109,7 +112,7 @@ const firebaseConfig = {
     MapsProvider,
     UserProvider,
     Facebook,
-    ConfigProvider,
+    ConfigProvider
     
     
   ]

@@ -3,6 +3,7 @@ import { NavController, NavParams, Content } from 'ionic-angular';
 import { RoomPage } from '../room/room';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ConfigProvider } from '../../providers/auth-service/config';
 
 @Component({
   selector: 'page-chat',
@@ -22,19 +23,16 @@ export class ChatPage {
   public listCities = new Array<any>();
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private afAhth: AngularFireAuth,) {
+    private afAhth: AngularFireAuth,
+  private configProvider: ConfigProvider) {
 
-    const authObserver = afAhth.authState.subscribe(user => {
-      this.nickname = "";
+      let config = configProvider.getConfigData();
       
-      if (user) {
-        this.nickname = user.displayName;
-        authObserver.unsubscribe();
-      }
-    })
+
+      
     
     this.roomkey = this.navParams.get("key") as string;
-    this.nickname = this.navParams.get("nickname") as string;
+    this.nickname = JSON.parse(config).email;
     this.data.type = 'message';
     this.data.nickname = this.nickname;
  
