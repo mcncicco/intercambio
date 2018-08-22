@@ -26,13 +26,12 @@ export class MyApp {
 
     const authObserver = afAuth.authState.subscribe(user => {
       if(user){
-        
-        configProvider.setConfigData(false,user.email,user.displayName,user.photoURL);
+        console.log("APPCOMPONENTS: verifica login");
+        configProvider.setConfigData(false,user.email,user.displayName);
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }else{
-        
-        this.rootPage = TabsPage;
+        this.rootPage = SigninPage;
         authObserver.unsubscribe();
       }
       authObserver.unsubscribe();

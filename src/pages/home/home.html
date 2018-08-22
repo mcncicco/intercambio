@@ -1,13 +1,18 @@
 <ion-header>
   <ion-navbar>
     
-    <ion-title>Bem Vindo, {{ displayName }}
-      <img src="{{ imgUrl}}" alt="{{ imgUrl}}" />
+    <ion-title>Bem Vindo, {{ user.displayName }}
+      <img src="{{ user.photoUrl}}" alt="{{ user.photoUrl}}" />
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+    <ion-fab right top>
+        <button ion-fab (click)="signOut()">
+          <ion-icon>Sair</ion-icon>
+        </button>
+      </ion-fab>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>

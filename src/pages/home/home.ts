@@ -9,16 +9,17 @@ import { MapsProvider } from '../../providers/maps/maps';
 import { MapsPage } from '../maps/maps';
 import { TabsPage } from '../tabs/tabs';
 import { ChatPage } from '../chat/chat';
+import { User } from '../../providers/user/user';
+import { ConfigProvider } from '../../providers/auth-service/config';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  displayName: string;
-  photoURL: string;
-  email: string;
-
+  
+  user: User = new User();
+  
   public refresher;
   public isRefreshing: boolean = false;
 
@@ -29,11 +30,17 @@ export class HomePage {
     private afAhth: AngularFireAuth,
     private cityProvider: CityProvider,
     private app: App,
-    private mapsProvider: MapsProvider
+    private mapsProvider: MapsProvider,
+    private configProvider: ConfigProvider
 
   ) {
-    
-
+    let config = configProvider.getConfigData();
+    console.log(config);
+    this.user.displayName = JSON.parse(config).displayName;
+    this.user.photoUrl = JSON.parse(config).photoURL;
+    this.user.email = JSON.parse(config).email;
+    console.log(this.user);
+   
   }
   joinChat(key:string){
     this.navCtrl.push(ChatPage, {key});

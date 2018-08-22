@@ -107,12 +107,6 @@ export class MapsPage {
       ]
     })
     .then((markerCluster) => {
-<<<<<<< HEAD
-      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((cluster: any) => {
-        let nomeCidade = "asdf";
-        cluster.setTitle(cluster.get("label"));
-        cluster.showInfoWindow();
-=======
       markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
         console.log(marker);
         console.log(marker.title);
@@ -135,8 +129,6 @@ export class MapsPage {
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
         this.countLocations = this.countLocations + 1;
-
->>>>>>> 7de0b521ea1246d39794aa7a5c3537c390ec1175
       });
       
     });
@@ -165,31 +157,6 @@ export class MapsPage {
 
   }
 
-<<<<<<< HEAD
-  setMarkers() {
-    console.log("setMarkers");
-    this.latSum = 0;
-    this.lngSum = 0;
-    this.countLocations = 0;
-    this.mapsProvider.getAll().subscribe(items => {
-      items.forEach(item => {
-        //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
-        
-        this.locations.push({position: {lat: item.latitude, lng: item.longitude},
-          label: item.email});
-        
-        this.latSum = this.latSum + item.latitude;
-        this.lngSum = this.lngSum + item.longitude;
-        this.countLocations = this.countLocations + 1;
-
-      });
-      
-    });
-    
-  }
-=======
-  
->>>>>>> 7de0b521ea1246d39794aa7a5c3537c390ec1175
   setCities() {
     console.log("setCities");
 
