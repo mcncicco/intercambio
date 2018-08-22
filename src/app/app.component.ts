@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { IntroPage } from '../pages/intro/intro';
 import { ConfigProvider } from '../providers/auth-service/config';
 import { TabsPage } from '../pages/tabs/tabs';
+import { User } from '../providers/user/user';
 
 
 @Component({
@@ -27,7 +28,10 @@ export class MyApp {
     const authObserver = afAuth.authState.subscribe(user => {
       if(user){
         console.log("APPCOMPONENTS: verifica login");
-        configProvider.setConfigData(false,user.email,user.displayName);
+        let userLocal = new User();
+        userLocal.email = user.email;
+        userLocal.displayName = user.displayName;
+        configProvider.setConfigData(false,userLocal);
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }else{

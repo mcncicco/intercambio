@@ -1,73 +1,87 @@
 <ion-header>
   <ion-navbar>
-    
-    <ion-title>Bem Vindo, {{ user.displayName }}
-      <img src="{{ user.photoUrl}}" alt="{{ user.photoUrl}}" />
+
+    <ion-title>Bem Vindo ao Intercâmbio App
+      
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-fab right top>
-        <button ion-fab (click)="signOut()">
-          <ion-icon>Sair</ion-icon>
+  <ion-fab right top>
+    <button ion-fab (click)="signOut()">
+      <ion-icon>Sair</ion-icon>
+    </button>
+  </ion-fab>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{ user.photoUrl }}" />
+      </ion-avatar>
+      <h2>{{ user.displayName }}</h2>
+      <p>{{ user.hometown }} </p>
+
+    </ion-item>
+
+
+  </ion-card>
+
+  <ion-card *ngFor="let city of listCities">
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
+      </ion-avatar>
+      <h2>{{city.nome}}</h2>
+      <p>Hora Local: </p>
+
+    </ion-item>
+
+    <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
+
+    <ion-card-content>
+      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
+        Whoa. This is heavy.</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>12 Likes</div>
         </button>
-      </ion-fab>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>4 Comments</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small (click)="joinChat(city.chatKey)">
+          <ion-icon name="chatboxes"></ion-icon>
+          Chat dea Cidade
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+      <ion-col center text-center>
+        <button ion-button icon-start clear item-end (click)="verNoMapa(city.nome)">
+          <ion-icon name="navigate"></ion-icon>
+          Ver no Mapa
+        </button>
+      </ion-col>
 
-      <ion-card *ngFor="let city of listCities">
-
-          <ion-item>
-            <ion-avatar item-start>
-                <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
-            </ion-avatar>
-            <h2>{{city.nome}}</h2>
-            <p>Hora Local: </p>
-            
-          </ion-item>
-        
-          <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
-        
-          <ion-card-content>
-            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-          </ion-card-content>
-        
-          <ion-row>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <ion-icon name="thumbs-up"></ion-icon>
-                <div>12 Likes</div>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <ion-icon name="text"></ion-icon>
-                <div>4 Comments</div>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-start clear small (click)="joinChat(city.chatKey)">
-                <ion-icon name="chatboxes"></ion-icon>
-                Chat dea Cidade
-              </button>
-            </ion-col>
-            <ion-col center text-center>
-              <ion-note>
-                11h ago
-              </ion-note>
-            </ion-col>
-            <ion-col center text-center>
-                <button ion-button icon-start clear item-end (click)="verNoMapa(city.nome)">
-                  <ion-icon name="navigate"></ion-icon>
-                  Ver no Mapa
-                </button>
-              </ion-col>
-              
-          </ion-row>
-          <button ion-button block (click)="openDetails(city.nome)">Details</button>
-        </ion-card>
+    </ion-row>
+    <button ion-button block (click)="openDetails(city.nome)">Details</button>
+  </ion-card>
 
 
 </ion-content>

@@ -3,6 +3,11 @@ export class User {
   displayName:string;
   password:string;
   photoUrl:string;
+  photoURLCaminho:string;
+  gender:string;
+  birthday:string;
+  locale:string;
+  hometown:string;
   
   constructor(){
       
