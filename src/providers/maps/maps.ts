@@ -33,7 +33,10 @@ export class MapsProvider {
   save(localizacao: any) {
     return new Promise((resolve, reject) => {
       this.db.list(this.PATH)
-        .update(localizacao.email.replace("@", "_a_").replace(".", "_p_"), { email: localizacao.email, latitude: localizacao.latitude, loongitude: localizacao.longitude })
+        .update(localizacao.email.replace("@", "_a_").replace(".", "_p_"), 
+        { email: localizacao.email, 
+          latitude: localizacao.latitude, 
+          longitude: localizacao.longitude })
         .then(() => resolve())
         .catch((e) => reject(e));
 

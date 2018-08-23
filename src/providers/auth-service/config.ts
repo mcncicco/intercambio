@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../user/user';
+import { UserProvider } from '../user/userProvider';
 
 let config_key_name = "config";
 
@@ -11,8 +12,6 @@ export class ConfigProvider {
     email: "",
     displayName: "",
     photoURL: "",
-    photoURLCaminho: "",
-    gender: "",
     locale: "",
     birthday: "",
     hometown: ""
@@ -30,13 +29,12 @@ export class ConfigProvider {
       email: "",
       displayName: "",
       photoURL: "",
-      photoURLCaminho: "",
-      gender: "",
       locale: "",
       birthday: "",
       hometown: ""
 
     };
+    let configLocal = this.getConfigData();
 
     if(showSlide){
       config.showSlide = showSlide;
@@ -50,11 +48,10 @@ export class ConfigProvider {
     }
     if(user.photoUrl){
       config.photoURL = user.photoUrl;
-      config.photoURLCaminho = user.photoUrl.replace("/","_b_");
+    }else{
+      config.photoURL = JSON.parse(configLocal).photoURL;
     }
-    if(user.gender){
-      config.gender = user.gender;
-    }
+    
     if(user.locale){
       config.locale = user.locale;
     }
@@ -69,6 +66,7 @@ export class ConfigProvider {
     console.log("Setando config"+config);
 
     localStorage.setItem(config_key_name, JSON.stringify(config));
+    
 
   }
   

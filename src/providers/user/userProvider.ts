@@ -12,19 +12,23 @@ export class UserProvider {
 
   save(user: any) {
     return new Promise((resolve, reject) => {
-      if (user.key) {
+      
         this.db.list(this.PATH)
-          .update(user.key, {email: user.email, nome:user.nome})
-          .then(() => resolve())
-          .catch((e) => reject(e));
+          .update(user.email.replace("@", "_a_").replace(".", "_p_"), {
+            email: user.email, 
+            displayName:user.displayName, 
+            photoUrl: user.photoUrl,
+            
+            birthday: user.birthday,
+            locale: user.locale,
+            hometown: user.hometown
+            
+          })
+          .then(() => resolve()).catch((e) =>  console.log(e));
         
-      } else {
-        this.db.list(this.PATH)
-          .push({email: user.email, nome: user.nome })
-          .then(() => resolve());
-        
-      }
+      
     })
   }
 
 }
+
