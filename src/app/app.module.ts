@@ -46,12 +46,12 @@ import { SettingsPage } from '../pages/settings/settings';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBZIDWA8LMA4iTuuncR02t3a4JbuL0eYqE",
-    authDomain: "intercambio-1f050.firebaseapp.com",
-    databaseURL: "https://intercambio-1f050.firebaseio.com",
-    projectId: "intercambio-1f050",
-    storageBucket: "intercambio-1f050.appspot.com",
-    messagingSenderId: "888576883410"
+  apiKey: "AIzaSyBv9wFYdvlL8Eai5VnfmnnfvacMx_JLpTM",
+    authDomain: "intercambio-1c967.firebaseapp.com",
+    databaseURL: "https://intercambio-1c967.firebaseio.com",
+    projectId: "intercambio-1c967",
+    storageBucket: "intercambio-1c967.appspot.com",
+    messagingSenderId: "213996863891"
 }
 
 @NgModule({

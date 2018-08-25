@@ -63,8 +63,11 @@ export class SigninPage {
   }*/
 
   signInWithGoogle() {
-    this.authService.signInWithGoogle()
+    console.log("SINGNINGOOGLE: verifica login");
+    console.log(this.authService.signInWithGoogle()
       .then(() => {
+        
+        console.log("SINGNINGOOGLE: ENTROU");
         this.saveLocal();
         this.navCtrl.setRoot(TabsPage);
       })
@@ -72,7 +75,7 @@ export class SigninPage {
         console.log(error);
         this.toastCtrl.create({ duration: 3000, position: 'bottom', message: 'Erro ao efetuar o login' })
           .present();
-      });
+      }));
   }
   
   signInWithFacebook() {

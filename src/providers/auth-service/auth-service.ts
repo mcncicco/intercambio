@@ -8,7 +8,7 @@ import { User } from '../user/user';
 
 
 @Injectable()
-export class AuthServiceProvider { 
+export class AuthServiceProvider {
 
   constructor(private angularFireAuth: AngularFireAuth
     , private googlePlus: GooglePlus
@@ -20,19 +20,26 @@ export class AuthServiceProvider {
 
   signIn(user: User) {
     return this.angularFireAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-  } 
+  }
 
   signInWithGoogle() {
+    console.log("AUTH-SERVICE");
     return this.googlePlus.login({
       'webClientId': '888576883410-rf137bnbpenuge49v3i0t9bfofq46gqr.apps.googleusercontent.com',
       'offline': true
     })
       .then(res => {
+        console.log("AUTH-SERVICE1");
         return this.angularFireAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
           .then((user: firebase.User) => {
             // atualizando o profile do usuario
             return user.updateProfile({ displayName: res.displayName, photoURL: res.imageUrl });
+          }).catch((error) => {
+            console.log(error);
           });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -45,15 +52,15 @@ export class AuthServiceProvider {
         return this.angularFireAuth.auth.signInWithCredential(firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken));
       });
   }
-/*
-  signInWithTwitter() {
-    return this.twitter.login()
-      .then((res) => {
-        return this.angularFireAuth.auth.signInWithCredential(firebase.auth.TwitterAuthProvider.credential(res.token, res.secret));
-      });
-  }
-*/
- signOut() : any {
+  /*
+    signInWithTwitter() {
+      return this.twitter.login()
+        .then((res) => {
+          return this.angularFireAuth.auth.signInWithCredential(firebase.auth.TwitterAuthProvider.credential(res.token, res.secret));
+        });
+    }
+  */
+  signOut(): any {
     if (this.angularFireAuth.auth.currentUser.providerData.length) {
       for (var i = 0; i < this.angularFireAuth.auth.currentUser.providerData.length; i++) {
         var provider = this.angularFireAuth.auth.currentUser.providerData[i];
@@ -65,7 +72,7 @@ export class AuthServiceProvider {
               return this.signOutFirebase();
             });
         } else if (provider.providerId == firebase.auth.FacebookAuthProvider.PROVIDER_ID) { // Se for facebook
-          return this.facebook.logout() 
+          return this.facebook.logout()
             .then(() => {
               return this.signOutFirebase();
             })
@@ -78,7 +85,7 @@ export class AuthServiceProvider {
       }
     }
     return this.signOutFirebase();
-    
+
   }
 
   private signOutFirebase() {

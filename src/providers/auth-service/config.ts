@@ -38,14 +38,17 @@ export class ConfigProvider {
 
     if(showSlide){
       config.showSlide = showSlide;
-      
     }
     if(user.email){
       config.email = user.email;
     }
+
     if(user.displayName){
       config.displayName = user.displayName;
+    }else{
+      config.displayName = JSON.parse(configLocal).displayName;
     }
+
     if(user.photoUrl){
       config.photoURL = user.photoUrl;
     }else{
@@ -54,12 +57,21 @@ export class ConfigProvider {
     
     if(user.locale){
       config.locale = user.locale;
+    }else{
+      config.locale = JSON.parse(configLocal).locale;
     }
+
     if(user.birthday){
       config.birthday = user.birthday;
     }
+    else{
+      config.birthday = JSON.parse(configLocal).birthday;
+    }
+
     if(user.hometown){
       config.hometown = user.hometown;
+    }else{
+      config.hometown = JSON.parse(configLocal).hometown;
     }
     
    

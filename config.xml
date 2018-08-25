@@ -78,6 +78,9 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <platform name="android">
+        <hook src="fixFirebasePlugin.js" type="before_build" />
+    </platform>
     <allow-navigation href="http://150.161.11.168:8100" />
     <allow-navigation href="http://192.168.0.14:8100" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
@@ -86,7 +89,7 @@
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-googlemaps" spec="git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDcU5cKRrzdbLjpqagkuIF1aBPFxlhR5OI" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBv9wFYdvlL8Eai5VnfmnnfvacMx_JLpTM" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
@@ -98,9 +101,9 @@
         <variable name="APP_NAME" value="intercambio" />
         <variable name="ANDROID_SDK_VERSION" value="4.+" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.apps.googleusercontent.888576883410-rf137bnbpenuge49v3i0t9bfofq46gqr" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="888576883410-rf137bnbpenuge49v3i0t9bfofq46gqr.apps.googleusercontent.com" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.apps.googleusercontent.213996863891-4ccul681moih583rrqq2pj6olm1t776l" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="213996863891-4ccul681moih583rrqq2pj6olm1t776l.apps.googleusercontent.com" />
     </plugin>
     <engine name="ios" spec="~4.3.1" />
     <engine name="android" spec="7.0.0" />

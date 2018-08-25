@@ -30,7 +30,6 @@ export class MyApp {
         console.log("APPCOMPONENTS: verifica login");
         let userLocal = new User();
         userLocal.email = user.email;
-        userLocal.displayName = user.displayName;
         configProvider.setConfigData(false, userLocal);
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
