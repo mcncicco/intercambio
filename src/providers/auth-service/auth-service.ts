@@ -25,7 +25,7 @@ export class AuthServiceProvider {
   signInWithGoogle() {
     console.log("AUTH-SERVICE");
     return this.googlePlus.login({
-      'webClientId': '888576883410-rf137bnbpenuge49v3i0t9bfofq46gqr.apps.googleusercontent.com',
+      'webClientId': '213996863891-4ccul681moih583rrqq2pj6olm1t776l.apps.googleusercontent.com',
       'offline': true
     })
       .then(res => {

@@ -46,7 +46,7 @@ import { SettingsPage } from '../pages/settings/settings';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBv9wFYdvlL8Eai5VnfmnnfvacMx_JLpTM",
+  apiKey: "AIzaSyC5zJOHc9idB2OQ7kGUvYTPqGC_yX9bV4k",
     authDomain: "intercambio-1c967.firebaseapp.com",
     databaseURL: "https://intercambio-1c967.firebaseio.com",
     projectId: "intercambio-1c967",
