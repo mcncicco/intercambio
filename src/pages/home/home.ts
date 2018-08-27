@@ -39,10 +39,6 @@ export class HomePage {
     this.user.displayName = JSON.parse(config).displayName;
     this.user.photoUrl = JSON.parse(config).photoURL;
     this.user.email = JSON.parse(config).email;
-    this.user.locale = JSON.parse(config).locale;
-    this.user.birthday = JSON.parse(config).birthday;
-    this.user.hometown = JSON.parse(config).hometown;
-   
     console.log("HOME"+this.user);
    
   }

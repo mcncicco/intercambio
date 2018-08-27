@@ -23,20 +23,20 @@ export class AuthServiceProvider {
   }
 
   signInWithGoogle() {
-    console.log("AUTH-SERVICE");
     return this.googlePlus.login({
       'webClientId': '213996863891-4ccul681moih583rrqq2pj6olm1t776l.apps.googleusercontent.com',
-      'offline': true
+      'offline': true,
+      'scopes': 'https://www.googleapis.com/auth/plus.login'
     })
       .then(res => {
-        console.log("AUTH-SERVICE1");
-        return this.angularFireAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
+        this.angularFireAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
           .then((user: firebase.User) => {
             // atualizando o profile do usuario
-            return user.updateProfile({ displayName: res.displayName, photoURL: res.imageUrl });
+            user.updateProfile({ displayName: res.displayName, photoURL: res.imageUrl });
           }).catch((error) => {
             console.log(error);
           });
+          return res;
       })
       .catch((error) => {
         console.log(error);
@@ -61,6 +61,11 @@ export class AuthServiceProvider {
     }
   */
   signOut(): any {
+    console.log(this.angularFireAuth);
+    console.log(this.angularFireAuth.auth);
+    console.log(this.angularFireAuth.auth.currentUser);
+    console.log(this.angularFireAuth.auth.currentUser.providerData);
+    console.log(this.angularFireAuth.auth.currentUser.providerData.length);
     if (this.angularFireAuth.auth.currentUser.providerData.length) {
       for (var i = 0; i < this.angularFireAuth.auth.currentUser.providerData.length; i++) {
         var provider = this.angularFireAuth.auth.currentUser.providerData[i];

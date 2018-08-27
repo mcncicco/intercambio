@@ -18,11 +18,6 @@ export class UserProvider {
             email: user.email, 
             displayName:user.displayName, 
             photoUrl: user.photoUrl,
-            
-            birthday: user.birthday,
-            locale: user.locale,
-            hometown: user.hometown
-            
           })
           .then(() => resolve()).catch((e) =>  console.log(e));
         

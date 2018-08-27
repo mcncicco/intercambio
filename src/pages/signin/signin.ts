@@ -58,16 +58,19 @@ export class SigninPage {
     }
   }
 
-  /*signInWithEmailPage() {
-    this.navCtrl.push(SigninWithEmailPage);
-  }*/
+  signInWithEmailPage() {
+    //this.navCtrl.push(SigninWithEmailPage);
+  }
 
   signInWithGoogle() {
     console.log("SINGNINGOOGLE: verifica login");
     console.log(this.authService.signInWithGoogle()
-      .then(() => {
+      .then((res) => {
         
-        console.log("SINGNINGOOGLE: ENTROU");
+        this.user.email = res.email;
+        this.user.displayName = res.displayName;
+        this.user.photoUrl = res.imageUrl;
+        this.userProvider.save(this.user);
         this.saveLocal();
         this.navCtrl.setRoot(TabsPage);
       })
@@ -92,11 +95,7 @@ export class SigninPage {
       this.facebook.api("/me?fields=name,birthday,email,hometown,location,picture.width(100).height(100).as(picture_large)", []).then((profile) => {
 
         this.user.email = profile.email;
-        
-        this.user.birthday = profile.birthday;
         this.user.displayName = profile.name;
-        this.user.hometown = profile.hometown.name;
-        this.user.locale = profile.location.name;
         this.user.photoUrl = profile['picture_large']['data']['url'];
         console.log("SIGNIN"+this.user);
         this.userProvider.save(this.user);
