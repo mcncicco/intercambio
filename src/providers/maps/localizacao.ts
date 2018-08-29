@@ -1,8 +1,11 @@
+import { LatLng } from "@ionic-native/google-maps";
+
 export class Localizacao {
   email:string;
   latitude:number;
   longitude:number;
-  cidade: string;
+  nomeCidade: string;
+  location:LatLng;
   
   constructor(){
    

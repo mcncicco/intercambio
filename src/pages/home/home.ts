@@ -26,10 +26,8 @@ export class HomePage {
   public listCities = new Array<any>();
 
   constructor(public navCtrl: NavController,
-    private authServiceProvider: AuthServiceProvider,
     private afAhth: AngularFireAuth,
     private cityProvider: CityProvider,
-    private app: App,
     private mapsProvider: MapsProvider,
     private configProvider: ConfigProvider
 
@@ -59,7 +57,7 @@ export class HomePage {
 
     this.cityProvider.getAllCities().subscribe(
       data => {
-//        console.log(data);
+        console.log(data);
         this.listCities = data;
         /*const response = (data as any);
         console.log(response);
@@ -69,17 +67,7 @@ export class HomePage {
       });
   }
 
-  signOut() {
-    this.authServiceProvider.signOut().then(() => {
-      this.app.getRootNav().setRoot(SigninPage);
-
-    })
-      .catch((error) => {
-        console.error(error);
-        this.navCtrl.setRoot(SigninPage);
-      });
-    this.navCtrl.setRoot(SigninPage);
-  }
+ 
 
   doRefresh(refresher) {
     this.isRefreshing = refresher;

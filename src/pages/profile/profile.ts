@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { SigninPage } from '../signin/signin';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,11 +17,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private authServiceProvider: AuthServiceProvider, private app: App) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+  }
+
+  signOut() {
+    this.authServiceProvider.signOut().then(() => {
+      this.app.getRootNav().setRoot(SigninPage);
+
+    })
+      .catch((error) => {
+        console.error(error);
+        this.navCtrl.setRoot(SigninPage);
+      });
+    this.navCtrl.setRoot(SigninPage);
   }
 
 }

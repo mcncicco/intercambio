@@ -1,18 +1,14 @@
 <ion-header>
   <ion-navbar>
 
-    <ion-title>Bem Vindo ao Intercâmbio App
+    <ion-title>Intercâmbio App - Brasileiros pelo mundo
       
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-fab right top>
-    <button ion-fab (click)="signOut()">
-      <ion-icon>Sair</ion-icon>
-    </button>
-  </ion-fab>
+  
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -44,36 +40,20 @@
     <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
 
     <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-        Whoa. This is heavy.</p>
+      <p>{{city.descricao}}</p>
     </ion-card-content>
 
     <ion-row>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
-        </button>
-      </ion-col>
-      <ion-col>
+      
+      <ion-col  left text-left>
         <button ion-button icon-start clear small (click)="joinChat(city.chatKey)">
           <ion-icon name="chatboxes"></ion-icon>
-          Chat dea Cidade
+          Chat da Cidade
         </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-      <ion-col center text-center>
-        <button ion-button icon-start clear item-end (click)="verNoMapa(city.nome)">
+      
+      
+      
+        <button ion-button icon-start clear small (click)="verNoMapa(city.nome)">
           <ion-icon name="navigate"></ion-icon>
           Ver no Mapa
         </button>

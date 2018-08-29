@@ -15,8 +15,7 @@ import { PersonPage } from '../person/person';
 })
 export class MapsPage {
 
-  localizacao: Localizacao;
-  latSum: any;
+    latSum: any;
   lngSum: any;
   countLocations: any;
   nomeCidade:string;
@@ -25,6 +24,7 @@ export class MapsPage {
   private mapElement:ElementRef;
   private map:GoogleMap;
   private location:LatLng;
+  private localizacao:Localizacao;
   private locations:Array<any> = [];
 
   constructor(private platform:Platform,
@@ -81,15 +81,14 @@ export class MapsPage {
 
   addCity() {
     console.log(this.map);
+    console.log("III");
     this.map.addMarker({
-      title: 'My Marker',
+      title: this.localizacao.nomeCidade,
       icon: 'place',
       label: 'My label',
       animation: 'DROP',
-      position: {
-        lat: this.location.lat,
-        lng: this.location.lng
-      }
+      position: this.localizacao.location
+      
     }).then(marker => {
         marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
           let nomeCidade = "asdf";
@@ -101,7 +100,6 @@ export class MapsPage {
   addCluster() {
     this.map.addMarkerCluster({
       markers: this.locations,
-      icon: 'person_pin',
       icons: [
         {min: 2, max: 100, url: "./assets/icon/blue-dot.png", anchor: {x: 16, y: 16}}
       ]
@@ -125,9 +123,7 @@ export class MapsPage {
     this.countLocations = 0;
     this.mapsProvider.getAll().subscribe(items => {
       items.forEach(item => {
-        //console.log("setMarkers" + item.email + " " + item.latitude + " " + item.longitude);
-        
-        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:item.email});
+        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:item.email, icon:item.photoUrl});
       
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
@@ -144,7 +140,7 @@ export class MapsPage {
     this.geolocation.getCurrentPosition()
       .then((resp) => {
         //this.locations.push({position: {lat: resp.coords.latitude, lng: resp.coords.longitude}});
-        
+        this.savePosition(resp.coords.latitude, resp.coords.longitude);
       }).catch((error) => {
         console.log(error);
       });
@@ -155,6 +151,7 @@ export class MapsPage {
     console.log(config);
     this.localizacao = new Localizacao();
     this.localizacao.email = JSON.parse(config).email;
+    //this.localizacao.displayName = JSON.parse(config).displayName;
     this.localizacao.latitude = latitude;
     this.localizacao.longitude = longitude;
     this.mapsProvider.save(this.localizacao);
@@ -163,10 +160,16 @@ export class MapsPage {
   
   setCities() {
     console.log("setCities");
-
+console.log("E");
     this.cityProvider.getAllCities().subscribe(items => {
+      
       items.forEach(item => {
+        
         this.location = new LatLng(item.latitude, item.longitude);
+        this.localizacao = new Localizacao();
+        this.localizacao.location = this.location;
+        this.localizacao.nomeCidade = item.nome;
+
        this.addCity();
       });
     });
