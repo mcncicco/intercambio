@@ -29,7 +29,9 @@ export class HomePage {
     private afAhth: AngularFireAuth,
     private cityProvider: CityProvider,
     private mapsProvider: MapsProvider,
-    private configProvider: ConfigProvider
+    private configProvider: ConfigProvider,
+    private authServiceProvider: AuthServiceProvider,
+    private app: App
 
   ) {
     let config = configProvider.getConfigData();
@@ -88,7 +90,17 @@ export class HomePage {
   }
 
 
+  signOut() {
+    this.authServiceProvider.signOut().then(() => {
+      this.app.getRootNav().setRoot(SigninPage);
 
+    })
+      .catch((error) => {
+        console.error(error);
+        this.navCtrl.setRoot(SigninPage);
+      });
+    this.navCtrl.setRoot(SigninPage);
+  }
 
   public horaRecife = null;
   getHour(nomeCidade: string) {

@@ -1,6 +1,6 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {Platform, NavController, NavParams} from "ionic-angular";
-import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker, MarkerCluster, HtmlInfoWindow} from "@ionic-native/google-maps";
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Platform, NavController, NavParams } from "ionic-angular";
+import { GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker, MarkerCluster, HtmlInfoWindow } from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
 import { ConfigProvider } from '../../providers/auth-service/config';
 import { MapsProvider } from '../../providers/maps/maps';
@@ -15,40 +15,40 @@ import { PersonPage } from '../person/person';
 })
 export class MapsPage {
 
-    latSum: any;
+  latSum: any;
   lngSum: any;
   countLocations: any;
-  nomeCidade:string;
-  
-  @ViewChild('map')
-  private mapElement:ElementRef;
-  private map:GoogleMap;
-  private location:LatLng;
-  private localizacao:Localizacao;
-  private locations:Array<any> = [];
+  nomeCidade: string;
 
-  constructor(private platform:Platform,
-              private googleMaps:GoogleMaps,
-              public geolocation: Geolocation,
-              public configProvider: ConfigProvider,
-              public mapsProvider: MapsProvider,
-              public cityProvider: CityProvider,
-              public navCtrl: NavController,
-              private navParams: NavParams
-            ) {
-    
+  @ViewChild('map')
+  private mapElement: ElementRef;
+  private map: GoogleMap;
+  private location: LatLng;
+  private localizacao: Localizacao;
+  private locations: Array<any> = [];
+
+  constructor(private platform: Platform,
+    private googleMaps: GoogleMaps,
+    public geolocation: Geolocation,
+    public configProvider: ConfigProvider,
+    public mapsProvider: MapsProvider,
+    public cityProvider: CityProvider,
+    public navCtrl: NavController,
+    private navParams: NavParams
+  ) {
+
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad MapsPage');
-    
+
     this.getPosition();
     this.setMarkers();
     this.getMap();
-    
+
   }
 
-  getMap(){
+  getMap() {
     this.platform.ready().then(() => {
       let element = this.mapElement.nativeElement;
       this.map = this.googleMaps.create(element);
@@ -61,23 +61,23 @@ export class MapsPage {
         };
 
         this.map.moveCamera(options);
-        setTimeout(() => {this.addCluster()}, 1000);
-        setTimeout(() => {this.setCities()}, 1000);
-        
+        setTimeout(() => { this.addCluster() }, 1000);
+        setTimeout(() => { this.setCities() }, 1000);
+
       });
     });
   }
-  setLocalizacaoInicial(){
+  setLocalizacaoInicial() {
     this.nomeCidade = this.navParams.get('nomeCidade');
     if (this.nomeCidade) {
       this.cityProvider.getCity(this.nomeCidade).subscribe(c => {
         this.location = new LatLng(c.latitude, c.longitude);
       });
-    }else{
-        this.location = new LatLng((this.latSum/this.countLocations), (this.lngSum/this.countLocations));
+    } else {
+      this.location = new LatLng((this.latSum / this.countLocations), (this.lngSum / this.countLocations));
     }
   }
-  
+
 
   addCity() {
     console.log(this.map);
@@ -88,12 +88,12 @@ export class MapsPage {
       label: 'My label',
       animation: 'DROP',
       position: this.localizacao.location
-      
+
     }).then(marker => {
-        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-          let nomeCidade = "asdf";
-          this.navCtrl.push(CityPage, {nomeCidade} );
-        });
+      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+        let nomeCidade = "asdf";
+        this.navCtrl.push(CityPage, { nomeCidade });
+      });
     });
   }
 
@@ -101,19 +101,19 @@ export class MapsPage {
     this.map.addMarkerCluster({
       markers: this.locations,
       icons: [
-        {min: 2, max: 100, url: "./assets/icon/blue-dot.png", anchor: {x: 16, y: 16}}
+        { min: 2, max: 100, url: "./assets/icon/blue-dot.png", anchor: { x: 16, y: 16 } }
       ]
     })
-    .then((markerCluster) => {
-      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
-        let latLng: LatLng = marker[0];
-        let markerClick: Marker = marker[1];
-        let emailUsuario : string = markerClick.getTitle();
-        console.log(emailUsuario);
-        this.navCtrl.push(PersonPage, {emailUsuario} );
-        
+      .then((markerCluster) => {
+        markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
+          let latLng: LatLng = marker[0];
+          let markerClick: Marker = marker[1];
+          let emailUsuario: string = markerClick.getTitle();
+          console.log(emailUsuario);
+          this.navCtrl.push(PersonPage, { emailUsuario });
+
+        });
       });
-    });
   }
 
   setMarkers() {
@@ -123,16 +123,17 @@ export class MapsPage {
     this.countLocations = 0;
     this.mapsProvider.getAll().subscribe(items => {
       items.forEach(item => {
-        this.locations.push({position: {lat: item.latitude, lng: item.longitude}, title:item.email, icon:item.photoUrl});
-      
+        console.log("I"+item.photoUrl);
+        this.locations.push({ position: { lat: item.latitude, lng: item.longitude }, title: item.email, icon: { url: item.photoUrl} });
+
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
         this.countLocations = this.countLocations + 1;
 
       });
-      
+
     });
-    
+
   }
   getPosition() {
     console.log("getPosition");
@@ -151,26 +152,28 @@ export class MapsPage {
     console.log(config);
     this.localizacao = new Localizacao();
     this.localizacao.email = JSON.parse(config).email;
+    this.localizacao.photoUrl = JSON.parse(config).photoUrl;
+    console.log("MAPS"+this.localizacao.photoUrl);
     //this.localizacao.displayName = JSON.parse(config).displayName;
     this.localizacao.latitude = latitude;
     this.localizacao.longitude = longitude;
     this.mapsProvider.save(this.localizacao);
 
   }
-  
+
   setCities() {
     console.log("setCities");
-console.log("E");
+    console.log("E");
     this.cityProvider.getAllCities().subscribe(items => {
-      
+
       items.forEach(item => {
-        
+
         this.location = new LatLng(item.latitude, item.longitude);
         this.localizacao = new Localizacao();
         this.localizacao.location = this.location;
         this.localizacao.nomeCidade = item.nome;
 
-       this.addCity();
+        this.addCity();
       });
     });
 

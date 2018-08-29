@@ -24,6 +24,12 @@ export class UserProvider {
       
     })
   }
+  get(key: string) {
+    /* return this.db.object(this.PATH + key).snapshotChanges()
+       .map(c => {
+         return { key: c.key, ...c.payload.val() };
+       });*/
+  }
 
 }
 

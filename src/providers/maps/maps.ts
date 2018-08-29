@@ -36,7 +36,8 @@ export class MapsProvider {
         .update(localizacao.email.replace("@", "_a_").replace(".", "_p_"), 
         { email: localizacao.email, 
           latitude: localizacao.latitude, 
-          longitude: localizacao.longitude })
+          longitude: localizacao.longitude,
+          photoUrl: localizacao.photoUrl })
         .then(() => resolve())
         .catch((e) => reject(e));
 

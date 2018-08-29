@@ -11,7 +11,7 @@ export class ConfigProvider {
     showSlide: false,
     email: "",
     displayName: "",
-    photoURL: ""
+    photoUrl: ""
   }
  
   constructor() { }
@@ -25,7 +25,7 @@ export class ConfigProvider {
       showSlide: false,
       email: "",
       displayName: "",
-      photoURL: ""
+      photoUrl: ""
     };
     let configLocal = this.getConfigData();
 
@@ -43,9 +43,11 @@ export class ConfigProvider {
     }
 
     if(user.photoUrl){
-      config.photoURL = user.photoUrl;
+      console.log("IFFFFF");
+      config.photoUrl = user.photoUrl;
     }else{
-      config.photoURL = JSON.parse(configLocal).photoURL;
+      console.log("ELSE");
+      config.photoUrl = JSON.parse(configLocal).photoUrl;
     }
     
     console.log("Setando config"+config);

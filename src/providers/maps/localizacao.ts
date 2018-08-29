@@ -6,6 +6,7 @@ export class Localizacao {
   longitude:number;
   nomeCidade: string;
   location:LatLng;
+  photoUrl:string;
   
   constructor(){
    
