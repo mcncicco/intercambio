@@ -29,12 +29,15 @@ export class MyApp {
       if(user){
         console.log("APPCOMPONENTS: verifica login");
         let userLocal = new User();
-        userLocal.email = user.email;
+        if(user.email){
+          userLocal.email = user.email;
+        }
+        
         configProvider.setConfigData(false, userLocal);
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }else{
-        this.rootPage = SigninPage;
+        this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }
       authObserver.unsubscribe();
@@ -51,7 +54,7 @@ export class MyApp {
         this.rootPage = IntroPage;
         configProvider.setConfigData(false);
       }else{
-        this.rootPage = SigninPage;
+        this.rootPage = TabsPage;
       }
 
       statusBar.styleDefault();

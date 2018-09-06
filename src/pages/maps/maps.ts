@@ -124,7 +124,7 @@ export class MapsPage {
     this.mapsProvider.getAll().subscribe(items => {
       items.forEach(item => {
         console.log("I"+item.photoUrl);
-        this.locations.push({ position: { lat: item.latitude, lng: item.longitude }, title: item.email, icon: { url: item.photoUrl} });
+        this.locations.push({ position: { lat: item.latitude, lng: item.longitude }, title: item.email, icon: { url: item.photoUrl, size:new google.maps.Size(34,34)},shape:{coords:[17,17,18],type:'circle'}, optimized:false });
 
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
