@@ -37,7 +37,7 @@ export class MyApp {
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }else{
-        this.rootPage = TabsPage;
+        this.rootPage = SigninPage;
         authObserver.unsubscribe();
       }
       authObserver.unsubscribe();
@@ -54,7 +54,7 @@ export class MyApp {
         this.rootPage = IntroPage;
         configProvider.setConfigData(false);
       }else{
-        this.rootPage = TabsPage;
+        this.rootPage = SigninPage;
       }
 
       statusBar.styleDefault();
