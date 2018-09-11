@@ -43,6 +43,7 @@ import { RoomPage } from '../pages/room/room';
 import { AddRoomPage } from '../pages/add-room/add-room';
 import { ChatPage } from '../pages/chat/chat';
 import { SettingsPage } from '../pages/settings/settings';
+import { CotacaoProvider } from '../providers/cotacao/cotacao';
 
 
 const firebaseConfig = {
@@ -112,7 +113,10 @@ const firebaseConfig = {
     MapsProvider,
     UserProvider,
     Facebook,
-    ConfigProvider
+    ConfigProvider,
+    CotacaoProvider,
+    CotacaoProvider,
+    CotacaoProvider
     
     
   ]

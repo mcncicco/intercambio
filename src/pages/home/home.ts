@@ -11,6 +11,7 @@ import { TabsPage } from '../tabs/tabs';
 import { ChatPage } from '../chat/chat';
 import { User } from '../../providers/user/user';
 import { ConfigProvider } from '../../providers/auth-service/config';
+import { CotacaoProvider } from '../../providers/cotacao/cotacao';
 
 @Component({
   selector: 'page-home',
@@ -29,7 +30,8 @@ export class HomePage {
     private afAhth: AngularFireAuth,
     private cityProvider: CityProvider,
     private mapsProvider: MapsProvider,
-    private configProvider: ConfigProvider
+    private configProvider: ConfigProvider,
+    private cotacaoProvider: CotacaoProvider
 
   ) {
     let config = configProvider.getConfigData();
@@ -65,6 +67,8 @@ export class HomePage {
         console.log(objeto_retorno);
         this.listCities = objeto_retorno;*/
       });
+this.cotacaoProvider.saveCotacao();
+
   }
 
  
