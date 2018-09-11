@@ -121,10 +121,14 @@ export class MapsPage {
     this.latSum = 0;
     this.lngSum = 0;
     this.countLocations = 0;
+    this.locations = new Array<any>();
     this.mapsProvider.getAll().subscribe(items => {
       items.forEach(item => {
         console.log("I"+item.photoUrl);
-        this.locations.push({ position: { lat: item.latitude, lng: item.longitude }, title: item.email, icon: { url: item.photoUrl, size:new google.maps.Size(34,34)},shape:{coords:[17,17,18],type:'circle'}, optimized:false });
+        this.locations.push({ position: { lat: item.latitude, lng: item.longitude }, 
+          title: item.email, 
+          icon: { url: item.photoUrl, size:new google.maps.Size(25,25)},
+          shape:{type:'circle'}});
 
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;

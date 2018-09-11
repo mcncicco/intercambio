@@ -11,6 +11,8 @@ import { TabsPage } from '../tabs/tabs';
 import { ChatPage } from '../chat/chat';
 import { User } from '../../providers/user/user';
 import { ConfigProvider } from '../../providers/auth-service/config';
+import { CotacaoProvider } from '../../providers/cotacao/cotacao';
+import { AddRoomPage } from '../add-room/add-room';
 
 @Component({
   selector: 'page-home',
@@ -30,20 +32,20 @@ export class HomePage {
     private cityProvider: CityProvider,
     private mapsProvider: MapsProvider,
     private configProvider: ConfigProvider,
-    private authServiceProvider: AuthServiceProvider,
-    private app: App
+    private cotacaoProvider: CotacaoProvider
 
   ) {
     let config = configProvider.getConfigData();
     console.log("HOME"+config);
     this.user.displayName = JSON.parse(config).displayName;
-    this.user.photoUrl = JSON.parse(config).photoURL;
+    this.user.photoUrl = JSON.parse(config).photoUrl;
     this.user.email = JSON.parse(config).email;
     console.log("HOME"+this.user);
    
   }
   joinChat(key:string){
-    this.navCtrl.push(ChatPage, {key});
+    console.log("joinChat");
+    this.navCtrl.push(AddRoomPage, {key});
   }
 
   verNoMapa(nomeCidade:string) {
@@ -67,6 +69,8 @@ export class HomePage {
         console.log(objeto_retorno);
         this.listCities = objeto_retorno;*/
       });
+//this.cotacaoProvider.saveCotacao();
+
   }
 
  
@@ -89,18 +93,6 @@ export class HomePage {
     console.log("HomePage");
   }
 
-
-  signOut() {
-    this.authServiceProvider.signOut().then(() => {
-      this.app.getRootNav().setRoot(SigninPage);
-
-    })
-      .catch((error) => {
-        console.error(error);
-        this.navCtrl.setRoot(SigninPage);
-      });
-    this.navCtrl.setRoot(SigninPage);
-  }
 
   public horaRecife = null;
   getHour(nomeCidade: string) {

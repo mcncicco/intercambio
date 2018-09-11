@@ -18,10 +18,16 @@ export class RoomPage {
   ref = firebase.database().ref('chatrooms/');
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    console.log("construtor room");
     this.ref.on('value', resp => {
       this.rooms = [];
       this.rooms = snapshotToArray(resp);
     });
+    console.log(this.navParams.get("roomname"));
+    if(this.navParams.get("roomname")){
+      this.joinRoom(this.navParams.get("roomname"));
+    }
+    
   }
   
 
@@ -33,7 +39,8 @@ export class RoomPage {
   }
 
   joinRoom(key) {
-    this.navCtrl.setRoot(ChatPage, {
+    console.log("joinromm"+key);
+    this.navCtrl.push(ChatPage, {
       key:key,
       nickname:this.navParams.get("nickname")
     });

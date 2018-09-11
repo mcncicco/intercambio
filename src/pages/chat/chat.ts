@@ -26,24 +26,21 @@ export class ChatPage {
     private afAhth: AngularFireAuth,
   private configProvider: ConfigProvider) {
 
-      let config = configProvider.getConfigData();
-      
-
-      
+    let config = configProvider.getConfigData();
     
     this.roomkey = this.navParams.get("key") as string;
+    console.log("ChatPage"+this.roomkey);
     this.nickname = JSON.parse(config).email;
     this.data.type = 'message';
     this.data.nickname = this.nickname;
  
-  
     let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
-    joinData.set({
+    /*joinData.set({
       type:'join',
       user:this.nickname,
       message:this.nickname+' has joined this room.',
       sendDate:Date()
-    });
+    });*/
     this.data.message = '';
   
     firebase.database().ref('chatrooms/'+this.roomkey+'/chats').on('value', resp => {
@@ -74,12 +71,12 @@ export class ChatPage {
 
   exitChat() {
     let exitData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
-    exitData.set({
+    /*exitData.set({
       type:'exit',
       user:this.nickname,
       message:this.nickname+' has exited this room.',
       sendDate:Date()
-    });
+    });*/
   
     this.offStatus = true;
   

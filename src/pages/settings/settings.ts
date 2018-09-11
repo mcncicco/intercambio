@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { SigninPage } from '../signin/signin';
 
 /**
  * Generated class for the SettingsPage page.
@@ -15,11 +17,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private authServiceProvider: AuthServiceProvider,
+    private app: App) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+  }
+
+  signOut() {
+    this.authServiceProvider.signOut().then(() => {
+      this.app.getRootNav().setRoot(SigninPage);
+
+    })
+      .catch((error) => {
+        console.error(error);
+        this.navCtrl.setRoot(SigninPage);
+      });
+    this.navCtrl.setRoot(SigninPage);
   }
 
 }
