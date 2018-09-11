@@ -17,6 +17,8 @@ export class ChatPage {
   nickname:string;
   offStatus:boolean = false;
 
+  ref = firebase.database().ref('chatrooms/');
+
   public refresher;
   public isRefreshing: boolean = false;
 
@@ -28,7 +30,9 @@ export class ChatPage {
 
     let config = configProvider.getConfigData();
     
-    this.roomkey = this.navParams.get("key") as string;
+    this.roomkey = this.navParams.get("roomKey") as string;
+    this.addRoom();
+    this.joinRoom(this.roomkey);
     console.log("ChatPage"+this.roomkey);
     this.nickname = JSON.parse(config).email;
     this.data.type = 'message';
@@ -85,6 +89,27 @@ export class ChatPage {
     });
   }
   
+  joinRoom(key) {
+    if(this.roomkey){
+      key = this.roomkey;
+    }
+    if(key){
+    console.log("joinromm"+this.roomkey);
+    this.navCtrl.push(ChatPage, {
+      key:key,
+      nickname:this.navParams.get("nickname")
+    });
+  }
+  }
+
+  addRoom() {
+    let newData = this.ref.child(this.roomkey);
+    newData.update({
+      roomname:this.roomkey
+    });
+    let roomname = this.roomkey
+    
+  }
 
 
 
