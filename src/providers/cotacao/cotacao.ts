@@ -19,7 +19,7 @@ export class CotacaoProvider {
   }
 
   getCotacoes(){
-    return this.http.get("http://api.promasters.net.br/cotacao/v1/valores?alt=json").toArray();
+    return this.http.get("http://api.promasters.net.br/cotacao/v1/valores??moedas=USD&alt=json");
 
   }
 
@@ -28,36 +28,14 @@ export class CotacaoProvider {
     
     this.getCotacoes().subscribe(data => {
       
-        
-        
-      
-        console.log(data);//array
-        console.log(data[0]);//objeto
-        console.log(data[0].toString);//objeto
-        
-        const response = (data[0] as any);
-        console.log(response);//objeto
+      console.log(data);
+        const response = (data as any);
+        console.log(response);
         const objeto_retorno = JSON.parse(response._body);
-        
-        
-        
-        
-        
-        //erro
         console.log(objeto_retorno);
-        console.log(data[0][0]);
-        console.log(data[0][1]);
-        console.log(data[0][0].valores);
         
+        console.log(data);//array
         
-        
-        
-
-
-
-
-
-      
 
     });
 
