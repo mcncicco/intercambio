@@ -26,8 +26,9 @@ export class MyApp {
     , configProvider: ConfigProvider) {
 
     const authObserver = afAuth.authState.subscribe(user => {
+      console.log("1");
       if(user){
-        console.log("APPCOMPONENTS: verifica login");
+        console.log("2");
         let userLocal = new User();
         if(user.email){
           userLocal.email = user.email;
@@ -37,6 +38,7 @@ export class MyApp {
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }else{
+        console.log("3");
         this.rootPage = TabsPage;
         authObserver.unsubscribe();
       }
@@ -49,12 +51,14 @@ export class MyApp {
       
       let config = configProvider.getConfigData();
       
-
+      console.log("4");
       if(config == null){
+        console.log("5");
         this.rootPage = IntroPage;
         configProvider.setConfigData(false);
       }else{
-        this.rootPage = TabsPage;
+        console.log("6");
+        this.rootPage = SigninPage;
       }
 
       statusBar.styleDefault();
