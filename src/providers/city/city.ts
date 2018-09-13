@@ -9,6 +9,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class CityProvider {
 
   private PATH_CITIES = 'cidades/';
+  private PATH_COUNTRIES = 'paises/';
 
   
   constructor(public http: HttpClient,
@@ -25,8 +26,17 @@ export class CityProvider {
     console.log("GETALLCITIES"); 
    return this.db.list(this.PATH_CITIES);
   }
+
   getCity(key: string) {
     return this.db.object(this.PATH_CITIES + key);
+  }
+  getAllCountries() {
+    console.log("GETALLCITIES"); 
+   return this.db.list(this.PATH_COUNTRIES);
+  }
+  
+  getCountry(key: string) {
+    return this.db.object(this.PATH_COUNTRIES + key);
   }
 
 }

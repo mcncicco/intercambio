@@ -25,41 +25,41 @@
 
   </ion-card>
 
-  <ion-card *ngFor="let city of listCities">
+  <ion-card *ngFor="let country of listCountries">
 
     <ion-item>
       <ion-avatar item-start>
-        <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
+        <img [src]="'assets/imgs/'+country.sigla+'.jpg'" />
       </ion-avatar>
-      <h2>{{city.nome}}</h2>
+      <h2>{{country.nome}}</h2>
       <p>Hora Local: </p>
 
     </ion-item>
 
-    <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
+    <img [src]="'assets/imgs/'+country.sigla+'.jpg'" />
 
     <ion-card-content>
-      <p>{{city.descricao}}</p>
+      <p>{{country.descricao}}</p>
     </ion-card-content>
 
     <ion-row>
       
       <ion-col  left text-left>
-        <button ion-button icon-start clear small (click)="joinChat(city.nome)">
+        <button ion-button icon-start clear small (click)="joinChat(country.nome)">
           <ion-icon name="chatboxes"></ion-icon>
-          Chat da Cidade
+          Chat do País
         </button>
       
       
       
-        <button ion-button icon-start clear small (click)="verNoMapa(city.nome)">
+        <button ion-button icon-start clear small (click)="verNoMapa(country.nome)">
           <ion-icon name="navigate"></ion-icon>
           Ver no Mapa
         </button>
       </ion-col>
 
     </ion-row>
-    <button ion-button block (click)="openDetails(city.nome)">Details</button>
+    <button ion-button block (click)="openDetails(country.sigla)">Details</button>
   </ion-card>
 
 

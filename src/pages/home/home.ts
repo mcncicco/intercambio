@@ -26,6 +26,7 @@ export class HomePage {
   public isRefreshing: boolean = false;
 
   public listCities = new Array<any>();
+  public listCountries = new Array<any>();
 
   constructor(public navCtrl: NavController,
     private afAhth: AngularFireAuth,
@@ -52,9 +53,9 @@ export class HomePage {
     this.navCtrl.push(MapsPage, {nomeCidade});
   }
 
-  openDetails(nomeCidade: string) {
-    console.log('home' + nomeCidade);
-    this.navCtrl.push(CityPage, { nomeCidade });
+  openDetails(country: string) {
+    console.log('home' + country);
+    this.navCtrl.push(CityPage, { country });
   }
 
   getCities() {
@@ -63,6 +64,22 @@ export class HomePage {
       data => {
         console.log(data);
         this.listCities = data;
+        /*const response = (data as any);
+        console.log(response);
+        const objeto_retorno = JSON.parse(response._body);
+        console.log(objeto_retorno);
+        this.listCities = objeto_retorno;*/
+      });
+//this.cotacaoProvider.saveCotacao();
+
+  }
+
+  getCountries() {
+
+    this.cityProvider.getAllCountries().subscribe(
+      data => {
+        console.log(data);
+        this.listCountries = data;
         /*const response = (data as any);
         console.log(response);
         const objeto_retorno = JSON.parse(response._body);
@@ -90,6 +107,7 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.getCities();
+    this.getCountries();
     console.log("HomePage");
   }
 

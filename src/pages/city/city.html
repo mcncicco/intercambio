@@ -1,12 +1,55 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{nomecidade}}</ion-title>
-  </ion-navbar>
 
+    <ion-title>Intercâmbio App - Brasileiros pelo mundo
+      
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-<h1>Estude Inglês em {{nomecidade}}</h1>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  
+
+  <ion-card *ngFor="let city of listCities">
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
+      </ion-avatar>
+      <h2>{{city.nome}}</h2>
+      <p>Hora Local: </p>
+
+    </ion-item>
+
+    <img [src]="'assets/imgs/'+city.nome+'.jpg'" />
+
+    <ion-card-content>
+      <p>{{city.descricao}}</p>
+    </ion-card-content>
+
+    <ion-row>
+      
+      <ion-col  left text-left>
+        <button ion-button icon-start clear small (click)="joinChat(city.chatKey)">
+          <ion-icon name="chatboxes"></ion-icon>
+          Chat da Cidade
+        </button>
+      
+      
+      
+        <button ion-button icon-start clear small (click)="verNoMapa(city.nome)">
+          <ion-icon name="navigate"></ion-icon>
+          Ver no Mapa
+        </button>
+      </ion-col>
+
+    </ion-row>
+    <button ion-button block (click)="openDetails(city.nome)">Details</button>
+  </ion-card>
+
+
 </ion-content>
