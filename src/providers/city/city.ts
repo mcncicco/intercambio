@@ -18,10 +18,15 @@ export class CityProvider {
   }
   
 
-  getHour(){
-    return this.http.get("http://api.timezonedb.com/v2/get-time-zone?key=SHESX7OLF3F3&format=json&by=zone&zone=America/Recife");
+  getHour(zone:string){
+    return this.http.get("http://api.timezonedb.com/v2/get-time-zone?key=SHESX7OLF3F3&format=json&by=zone&zone="+zone);
      
   }
+  getCotacao(zone:string){
+    return this.http.get("http://economia.awesomeapi.com.br/"+zone+"/1?format=json");
+
+  }
+
   getAllCities() {
     console.log("GETALLCITIES"); 
    return this.db.list(this.PATH_CITIES);
