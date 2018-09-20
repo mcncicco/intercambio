@@ -13,6 +13,8 @@ export class MapsProvider {
   items: FirebaseListObservable<any[]>;
   private PATH = 'localizacao/';
   private PATH_CITIES = 'cidades/';
+  private PATH_UPDATE_HOUR = 'cidades/';
+  private PATH_UPDATE_COTACAO = 'paises/';
 
   constructor(private db: AngularFireDatabase) {
   }
@@ -47,6 +49,29 @@ export class MapsProvider {
   remove(key: string) {
     return this.db.list(this.PATH).remove(key);
   }
+
+
+  saveHour(key:string, hour:string) {
+    return new Promise((resolve, reject) => {
+      this.db.list(this.PATH_UPDATE_HOUR)
+        .update(key, 
+        { hour: hour })
+        .then(() => resolve())
+        .catch((e) => reject(e));
+
+    })
+  }
+  saveCotacao(key:string, cotacao:string) {
+    return new Promise((resolve, reject) => {
+      this.db.list(this.PATH_UPDATE_COTACAO)
+        .update(key, 
+        { cotacao: cotacao })
+        .then(() => resolve())
+        .catch((e) => reject(e));
+
+    })
+  }
+  
 
 }
  

@@ -19,7 +19,7 @@ export class CotacaoProvider {
   }
 
   getCotacoes(){
-    return this.http.get("http://api.promasters.net.br/cotacao/v1/valores??moedas=USD&alt=json");
+    return this.http.get("http://api.promasters.net.br/cotacao/v1/valores?moedas=USD&alt=json");
 
   }
 
