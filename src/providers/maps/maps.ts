@@ -65,7 +65,7 @@ export class MapsProvider {
     return new Promise((resolve, reject) => {
       this.db.list(this.PATH_UPDATE_COTACAO)
         .update(key, 
-        { cotacao: cotacao })
+        { cotacao: cotacao.substr(0,4) })
         .then(() => resolve())
         .catch((e) => reject(e));
 

@@ -17,6 +17,9 @@
       <ion-card-title>
         {{city.nome}}
         </ion-card-title>
+        <p>
+          Hora Local: {{city.hour}}
+        </p>
       <p>
         {{city.descricao}}
       </p>
@@ -39,7 +42,7 @@
       </ion-col>
 
     </ion-row>
-    <button ion-button block (click)="openDetails(city.nome)">Details</button>
+    
   </ion-card>
 
 
