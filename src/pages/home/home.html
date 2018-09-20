@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
 
-    <ion-title>Intercâmbio App - Brasileiros pelo mundo
+    <ion-title>Intercâmbio App
       
     </ion-title>
   </ion-navbar>
@@ -25,23 +25,18 @@
 
   </ion-card>
 
+
   <ion-card *ngFor="let country of listCountries">
-
-    <ion-item>
-      <ion-avatar item-start>
-        <img [src]="'assets/imgs/'+country.sigla+'.jpg'" />
-      </ion-avatar>
-      <h2>{{country.nome}}</h2>
-      <p>Hora Local: </p>
-
-    </ion-item>
-
     <img [src]="'assets/imgs/'+country.sigla+'.jpg'" />
-
     <ion-card-content>
-      <p>{{country.descricao}}</p>
+      <ion-card-title>
+        {{country.nome}}
+        </ion-card-title>
+      <p>
+        {{country.descricao}}
+      </p>
     </ion-card-content>
-
+ 
     <ion-row>
       
       <ion-col  left text-left>
@@ -59,7 +54,7 @@
       </ion-col>
 
     </ion-row>
-    <button ion-button block (click)="openDetails(country.sigla)">Details</button>
+    <button ion-button block (click)="openDetails(country.sigla, country.nome)">Ver cidades...</button>
   </ion-card>
 
 

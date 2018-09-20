@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CityProvider } from '../../providers/city/city';
+import { ChatPage } from '../chat/chat';
 
 /**
  * Generated class for the CityPage page.
@@ -17,12 +18,16 @@ import { CityProvider } from '../../providers/city/city';
 export class CityPage {
 
   public listCities = new Array<any>();
-  public nomecidade;
+  public nomeCountry;
+  public siglaCountry;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private cityProvider: CityProvider,
   ) {
-      this.nomecidade = navParams.get('country');
+      this.nomeCountry = navParams.get('nomeCountry');
+      this.siglaCountry = navParams.get('siglaCountry');
+      
+      console.log(this.nomeCountry);
       this.getCities();
       
   }
@@ -32,8 +37,8 @@ export class CityPage {
   }
 
   getCities() {
-
-    this.cityProvider.getAllCities().subscribe(
+    
+    this.cityProvider.getCities(this.siglaCountry.toUpperCase()).subscribe(
       data => {
         console.log(data);
         this.listCities = data;
@@ -45,6 +50,11 @@ export class CityPage {
       });
 //this.cotacaoProvider.saveCotacao();
 
+  }
+
+  joinChat(roomKey:string){
+    console.log("joinChat");
+    this.navCtrl.push(ChatPage, {roomKey});
   }
 
 }

@@ -30,6 +30,9 @@ export class CityProvider {
   getCity(key: string) {
     return this.db.object(this.PATH_CITIES + key);
   }
+  getCities(key: string) {
+    return this.db.list(this.PATH_CITIES + key);
+  }
   getAllCountries() {
     console.log("GETALLCITIES"); 
    return this.db.list(this.PATH_COUNTRIES);

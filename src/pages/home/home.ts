@@ -53,9 +53,10 @@ export class HomePage {
     this.navCtrl.push(MapsPage, {nomeCidade});
   }
 
-  openDetails(country: string) {
-    console.log('home' + country);
-    this.navCtrl.push(CityPage, { country });
+  openDetails(siglaCountry: string, nomeCountry: string) {
+    console.log('home' + nomeCountry);
+    console.log('home' + siglaCountry);
+    this.navCtrl.push(CityPage, {siglaCountry, nomeCountry});
   }
 
   getCities() {
