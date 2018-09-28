@@ -126,7 +126,7 @@ export class MapsPage {
       items.forEach(item => {
         console.log(item.latitude.toFixed(3));
         console.log(item.longitude.toFixed(3));
-        this.locations.push({ position: { lat: item.latitude.toFixed(3), lng: item.longitude.toFixed(3) }, 
+        this.locations.push({ position: { lat: Number(item.latitude.toFixed(3)), lng: Number(item.longitude.toFixed(3)) }, 
           title: item.email, 
           icon: { url: item.photoUrl, size:new google.maps.Size(25,25)},
           shape:{type:'circle'}});
