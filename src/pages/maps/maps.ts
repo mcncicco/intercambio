@@ -124,8 +124,9 @@ export class MapsPage {
     this.locations = new Array<any>();
     this.mapsProvider.getAll().subscribe(items => {
       items.forEach(item => {
-        console.log("I"+item.photoUrl);
-        this.locations.push({ position: { lat: item.latitude, lng: item.longitude }, 
+        console.log(item.latitude.toFixed(3));
+        console.log(item.longitude.toFixed(3));
+        this.locations.push({ position: { lat: item.latitude.toFixed(3), lng: item.longitude.toFixed(3) }, 
           title: item.email, 
           icon: { url: item.photoUrl, size:new google.maps.Size(25,25)},
           shape:{type:'circle'}});
