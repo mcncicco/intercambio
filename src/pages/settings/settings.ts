@@ -39,6 +39,11 @@ export class SettingsPage {
     setTimeout(() => { this.getHourToronto() }, 6000);
     setTimeout(() => { this.getHourValeta() }, 7000);
     setTimeout(() => { this.getHourVancouver() }, 8000);
+    setTimeout(() => { this.getHourSanDiego() }, 9000);
+    setTimeout(() => { this.getHourMadri() }, 10000);
+    setTimeout(() => { this.getHourBarcelona() }, 11000);
+    setTimeout(() => { this.getHourBoston() }, 12000);
+
     setTimeout(() => { this.getCotacaoCAN() }, 9000);
     setTimeout(() => { this.getCotacaoENG() }, 10000);
     setTimeout(() => { this.getCotacaoEUA() }, 11000);
@@ -135,6 +140,44 @@ export class SettingsPage {
   }
 
   public hora;
+  getHourBarcelona() {
+    this.cityProvider.getHour("Europe/London").subscribe(
+      data => {
+        console.log(data);
+        const response = (data as any);
+        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
+        this.mapsProvider.saveHour("ESP/barcelona", this.hora);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+  
+  getHourMadri() {
+    this.cityProvider.getHour("Europe/London").subscribe(
+      data => {
+        console.log(data);
+        const response = (data as any);
+        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
+        this.mapsProvider.saveHour("ESP/Barcelona", this.hora);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+  getHourBoston() {
+    this.cityProvider.getHour("America/New_York").subscribe(
+      data => {
+        console.log(data);
+        const response = (data as any);
+        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
+        this.mapsProvider.saveHour("EUA/Boston", this.hora);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+  
   getHourSydney() {
     this.cityProvider.getHour("Australia/Sydney").subscribe(
       data => {
@@ -168,6 +211,18 @@ export class SettingsPage {
         const response = (data as any);
         this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
         this.mapsProvider.saveHour("IRL/Dublin", this.hora);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+  getHourSanDiego(){
+    this.cityProvider.getHour("America/Los_Angeles").subscribe(
+      data => {
+        console.log(data);
+        const response = (data as any);
+        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
+        this.mapsProvider.saveHour("EUA/SanDiego", this.hora);
       }, error => {
         console.log(error);
       }
