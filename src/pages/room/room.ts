@@ -18,7 +18,7 @@ export class RoomPage {
   rooms = [];
   ref = firebase.database().ref('chatrooms/');
   nickname:string;
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private configProvider: ConfigProvider) {
     
@@ -31,12 +31,17 @@ export class RoomPage {
     if(this.navParams.get("roomname")){
       this.joinRoom(this.navParams.get("roomname"));
     }
+    let config = this.configProvider.getConfigData();
+    this.nickname = JSON.parse(config).email.replace("@", "_a_").replace(".", "_p_");
     
   }
   
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RoomPage');
+  }
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter RoomPage');
   }
   addRoom() {
     this.navCtrl.push(AddRoomPage);

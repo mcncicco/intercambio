@@ -11,9 +11,12 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let room of rooms">
+    <ion-item *ngFor="let room of rooms"  >
+      <div *ngIf="room.roomname.indexOf(nickname) > -1">
       {{room.roomname}}
+      
       <ion-icon name="chatboxes" item-end (click)="joinRoom(room.roomname)"></ion-icon>
+    </div>
     </ion-item>
   </ion-list>
 </ion-content>

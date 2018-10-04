@@ -12,6 +12,7 @@ import { ConfigProvider } from '../../providers/auth-service/config';
 export class ChatPage {
   @ViewChild(Content) content: Content;
   data = { type:'', nickname:'', message:'' };
+  
   chats = [];
   roomkey:string;
   nickname:string;
@@ -33,20 +34,20 @@ export class ChatPage {
     this.roomkey = this.navParams.get("key") as string;
     
     this.addRoom();
-    this.joinRoom(this.roomkey);
+    //this.joinRoom(this.roomkey);
     console.log("ChatPage"+this.roomkey);
     this.nickname = JSON.parse(config).email;
     this.data.type = 'message';
     this.data.nickname = this.nickname;
  
-    let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
-    /*joinData.set({
+    /*let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
+    joinData.set({
       type:'join',
       user:this.nickname,
       message:this.nickname+' has joined this room.',
       sendDate:Date()
-    });*/
-    this.data.message = '';
+    });
+    this.data.message = '';*/
   
     firebase.database().ref('chatrooms/'+this.roomkey+'/chats').on('value', resp => {
       this.chats = [];
@@ -111,12 +112,7 @@ export class ChatPage {
     let roomname = this.roomkey
     
   }
-
-
-
-
   
-
 
 }
 export const snapshotToArray = snapshot => {
