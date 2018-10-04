@@ -1,12 +1,27 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{emailUsuario}}</ion-title>
+    <ion-title>User</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<h1>Intercambista: {{emailUsuario}}</h1>
+
+<ion-card>
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="{{ user.photoUrl }}" />
+    </ion-avatar>
+    <h2>{{ user.displayName }}</h2>
+    <p></p>
+
+    <button ion-button block (click)="joinChatUser()">Chat</button>
+
+  </ion-item>
+
+
+</ion-card>
 </ion-content>
+

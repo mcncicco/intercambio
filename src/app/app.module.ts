@@ -44,6 +44,7 @@ import { AddRoomPage } from '../pages/add-room/add-room';
 import { ChatPage } from '../pages/chat/chat';
 import { SettingsPage } from '../pages/settings/settings';
 import { CotacaoProvider } from '../providers/cotacao/cotacao';
+import { CountryPage } from '../pages/country/country';
 
 
 const firebaseConfig = {
@@ -67,6 +68,7 @@ const firebaseConfig = {
     ResetpasswordPage,
     MapsPage,
     CityPage,
+    CountryPage,
     PersonPage,
     RoomPage,
     AddRoomPage,
@@ -94,6 +96,7 @@ const firebaseConfig = {
     ResetpasswordPage,
     MapsPage,
     CityPage,
+    CountryPage,
     PersonPage,
     RoomPage,
     AddRoomPage,

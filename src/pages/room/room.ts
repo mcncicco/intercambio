@@ -4,6 +4,7 @@ import { AddRoomPage } from '../add-room/add-room';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase';
 import { ChatPage } from '../chat/chat';
+import { ConfigProvider } from '../../providers/auth-service/config';
 
 
 
@@ -16,8 +17,11 @@ export class RoomPage {
 
   rooms = [];
   ref = firebase.database().ref('chatrooms/');
+  nickname:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  private configProvider: ConfigProvider) {
+    
     console.log("construtor room");
     this.ref.on('value', resp => {
       this.rooms = [];
@@ -40,10 +44,14 @@ export class RoomPage {
 
   joinRoom(key) {
     console.log("joinromm"+key);
+    let config = this.configProvider.getConfigData();
+    this.nickname = JSON.parse(config).email.replace("@", "_a_").replace(".", "_p_");
+    console.log("joinromm"+this.nickname);
     this.navCtrl.push(ChatPage, {
       key:key,
-      nickname:this.navParams.get("nickname")
+      nickname:this.nickname
     });
+    console.log("joinromm"+key);
   }
 
 }

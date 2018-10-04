@@ -13,6 +13,7 @@ import { User } from '../../providers/user/user';
 import { ConfigProvider } from '../../providers/auth-service/config';
 import { CotacaoProvider } from '../../providers/cotacao/cotacao';
 import { AddRoomPage } from '../add-room/add-room';
+import { CountryPage } from '../country/country';
 
 @Component({
   selector: 'page-home',
@@ -56,7 +57,7 @@ export class HomePage {
   openDetails(siglaCountry: string, nomeCountry: string) {
     console.log('home' + nomeCountry);
     console.log('home' + siglaCountry);
-    this.navCtrl.push(CityPage, {siglaCountry, nomeCountry});
+    this.navCtrl.push(CountryPage, {siglaCountry, nomeCountry});
   }
 
   getCities() {

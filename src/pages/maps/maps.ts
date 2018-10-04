@@ -80,18 +80,18 @@ export class MapsPage {
 
 
   addCity() {
-    console.log(this.map);
+    console.log("addCity");
     
     this.map.addMarker({
       title: this.localizacao.nomeCidade,
       icon: 'place',
-      label: 'My label',
+      label: this.localizacao.nomeCidade,
       animation: 'DROP',
       position: this.localizacao.location
 
     }).then(marker => {
-      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-        let nomeCidade = "asdf";
+      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe((marker: any) => {
+        let nomeCidade = marker.nomeCidade;
         this.navCtrl.push(CityPage, { nomeCidade });
       });
     });
@@ -126,8 +126,10 @@ export class MapsPage {
       this.locations = new Array<any>();
       items.forEach(item => {
 
-        this.locations.push({ position: { lat: Number(item.latitude.toFixed(1)), lng: Number(item.longitude.toFixed(1)) }, 
+        this.locations.push({ 
+          position: { lat: Number(item.latitude.toFixed(1)), lng: Number(item.longitude.toFixed(1)) }, 
           title: item.email, 
+          label: item.displayName, 
           icon: { url: item.photoUrl, size:new google.maps.Size(25,25)},
           shape:{type:'circle'}});
 

@@ -18,17 +18,15 @@ import { ChatPage } from '../chat/chat';
 export class CityPage {
 
   public listCities = new Array<any>();
-  public nomeCountry;
+  public nomeCidade;
   public siglaCountry;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private cityProvider: CityProvider,
   ) {
-      this.nomeCountry = navParams.get('nomeCountry');
-      this.siglaCountry = navParams.get('siglaCountry');
-      
-      console.log(this.nomeCountry);
-      this.getCities();
+      this.nomeCidade = navParams.get('nomeCidade');
+      console.log(this.nomeCidade);
+      this.getCity();
       
   }
 
@@ -36,9 +34,9 @@ export class CityPage {
     console.log('ionViewDidLoad CityPage');
   }
 
-  getCities() {
+  getCity() {
     
-    this.cityProvider.getCities(this.siglaCountry.toUpperCase()).subscribe(
+    this.cityProvider.getCity(this.nomeCidade.toUpperCase()).subscribe(
       data => {
         console.log(data);
         this.listCities = data;

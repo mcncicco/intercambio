@@ -27,10 +27,11 @@ export class ChatPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afAhth: AngularFireAuth,
   private configProvider: ConfigProvider) {
-
+    
     let config = configProvider.getConfigData();
     
-    this.roomkey = this.navParams.get("roomKey") as string;
+    this.roomkey = this.navParams.get("key") as string;
+    
     this.addRoom();
     this.joinRoom(this.roomkey);
     console.log("ChatPage"+this.roomkey);
