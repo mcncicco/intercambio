@@ -19,6 +19,8 @@ import { MapsProvider } from '../../providers/maps/maps';
 })
 export class SettingsPage {
 
+  public hora;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private authServiceProvider: AuthServiceProvider,
     private app: App,
@@ -66,241 +68,124 @@ export class SettingsPage {
 
   public cotacao;
 
-
+  getCotacao(p1:string, p2:string) {
+    this.cityProvider.getCotacao(p1).subscribe(
+      data => {
+        console.log(data);
+        const response = (data as any);
+        console.log(response);
+        this.cotacao = JSON.stringify(response[0].ask.replace("\"", ""));
+        console.log(this.cotacao);
+        this.mapsProvider.saveCotacao(p2, this.cotacao.replace("\"", ""));
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
 
   getCotacaoCAN() {
-    this.cityProvider.getCotacao("CAD-BRL").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        console.log(response);
-        this.cotacao = JSON.stringify(response[0].ask.replace("\"", ""));
-        console.log(this.cotacao);
-        this.mapsProvider.saveCotacao("CAN", this.cotacao.replace("\"", ""));
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getCotacao("CAD-BRL", "CAN");
   }
   getCotacaoENG() {
-    this.cityProvider.getCotacao("GBP-BRL").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        console.log(response);
-        this.cotacao = JSON.stringify(response[0].ask.replace("\"", ""));
-        console.log(this.cotacao);
-        this.mapsProvider.saveCotacao("ENG", this.cotacao.replace("\"", ""));
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getCotacao("GBP-BRL", "ENG");
   }
   getCotacaoEUA() {
-    this.cityProvider.getCotacao("USD-BRL").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        console.log(response);
-        this.cotacao = JSON.stringify(response[0].ask.replace("\"", ""));
-        console.log(this.cotacao);
-        this.mapsProvider.saveCotacao("EUA", this.cotacao.replace("\"", ""));
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getCotacao("USD-BRL", "EUA");
   }
   getCotacaoIRL() {
-    this.cityProvider.getCotacao("EUR-BRL").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        console.log(response);
-        this.cotacao = JSON.stringify(response[0].ask.replace("\"", ""));
-        console.log(this.cotacao);
-        this.mapsProvider.saveCotacao("IRL", this.cotacao.replace("\"", ""));
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getCotacao("EUR-BRL", "IRL");
   }
   getCotacaoMAL() {
-    this.cityProvider.getCotacao("EUR-BRL").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        console.log(response);
-        this.cotacao = JSON.stringify(response[0].ask).replace("\"", "");
-        console.log(this.cotacao);
-        this.mapsProvider.saveCotacao("MAL", this.cotacao.replace("\"", ""));
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getCotacao("EUR-BRL", "MAL");
   }
-
-  public hora;
-  getHourBarcelona() {
-    this.cityProvider.getHour("Europe/London").subscribe(
+  
+  getHour(p1:string, p2:string) {
+    this.cityProvider.getHour(p1).subscribe(
       data => {
         console.log(data);
         const response = (data as any);
         this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("ESP/barcelona", this.hora);
+        this.mapsProvider.saveHour(p2, this.hora);
       }, error => {
         console.log(error);
       }
-    )
+    );
+  }
+  getTemp(p1:string, p2:string) {
+    this.cityProvider.getCityCode(p1).subscribe(
+      data => {
+        const response = (data as any);
+        console.log("temp "+p1+p2);
+        console.log("temp "+response);
+        let code = response[0].id;
+        console.log(response[0].id);
+        console.log("C" + code);
+        this.cityProvider.getCityTemp(code).subscribe(
+          data => {
+            const response = (data as any);
+            console.log(response);
+            console.log(response.name);
+            console.log(response.data.temperature);
+            this.mapsProvider.saveTemp(p2, response.data.temperature);
+
+          }, error => {
+            console.log(error);
+          }
+        );
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+  getHourBarcelona() {
+    this.getHour("Europe/London", "ESP/Barcelona");
+    this.getTemp("Barcelona", "ESP/Barcelona");
   }
   
   getHourMadri() {
-    this.cityProvider.getHour("Europe/London").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("ESP/Barcelona", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("Europe/London", "ESP/Madri");
+    this.getTemp("Madri", "ESP/Madri");
   }
+
   getHourBoston() {
-    this.cityProvider.getHour("America/New_York").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("EUA/Boston", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("America/New_York", "EUA/Boston");
+    this.getTemp("Boston", "EUA/Boston");
   }
   
   getHourSydney() {
-    this.cityProvider.getHour("Australia/Sydney").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("AUS/Sydney", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("Australia/Sydney", "AUS/Sydney");
+    this.getTemp("Sydney", "AUS/Sydney");
   }
   getHourValeta() {
-
-    this.cityProvider.getHour("Europe/Malta").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("MAL/Valeta", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("Europe/Malta", "MAL/Valeta");
+    this.getTemp("Valeta", "MAL/Valeta");
   }
   getHourDublin() {
-
-    this.cityProvider.getHour("Europe/Dublin").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("IRL/Dublin", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("Europe/Dublin", "IRL/Dublin");
+    this.getTemp("Dublin", "IRL/Dublin");
   }
   getHourSanDiego(){
-    this.cityProvider.getHour("America/Los_Angeles").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("EUA/SanDiego", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("America/Los_Angeles", "EUA/SanDiego");
+    this.getTemp("SanDiego", "EUA/SanDiego");
   }
   getHourSaoFrancisco() {
-
-    this.cityProvider.getHour("America/Los_Angeles").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("EUA/SaoFrancisco", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("America/Los_Angeles", "EUA/SaoFrancisco");
+    this.getTemp("SaoFrancisco", "EUA/SaoFrancisco");
   }
   getHourNewYork() {
-
-    this.cityProvider.getHour("America/New_York").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("EUA/NewYork", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("America/New_York", "EUA/NewYork");
+    this.getTemp("NewYork", "EUA/NewYork");
   }
   getHourLondres() {
-
-    this.cityProvider.getHour("Europe/London").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("ENG/Londres", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("Europe/London", "ENG/Londres");
+    this.getTemp("Londres", "ENG/Londres");
   }
   getHourToronto() {
-
-    this.cityProvider.getHour("America/Toronto").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("CAN/Toronto", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
+    this.getHour("America/Toronto", "CAN/Toronto");
+    this.getTemp("Toronto", "CAN/Toronto");
   }
   getHourVancouver() {
-
-    this.cityProvider.getHour("America/Vancouver").subscribe(
-      data => {
-        console.log(data);
-        const response = (data as any);
-        this.hora = JSON.stringify(response.formatted).split(" ")[1].replace("\"", "");
-        this.mapsProvider.saveHour("CAN/Vancouver", this.hora);
-      }, error => {
-        console.log(error);
-      }
-    )
-    var minutos = new Date().getMinutes();
-    if (minutos < 10) {
-      console.log("0" + minutos);
-    } else {
-      console.log(minutos);
-    }
-
+    this.getHour("America/Vancouver", "CAN/Vancouver");
+    this.getTemp("Vancouver", "CAN/Vancouver");
   }
-
-
-
 }

@@ -11,7 +11,6 @@ import { TabsPage } from '../tabs/tabs';
 import { ChatPage } from '../chat/chat';
 import { User } from '../../providers/user/user';
 import { ConfigProvider } from '../../providers/auth-service/config';
-import { CotacaoProvider } from '../../providers/cotacao/cotacao';
 import { AddRoomPage } from '../add-room/add-room';
 import { CountryPage } from '../country/country';
 
@@ -33,8 +32,7 @@ export class HomePage {
     private afAhth: AngularFireAuth,
     private cityProvider: CityProvider,
     private mapsProvider: MapsProvider,
-    private configProvider: ConfigProvider,
-    private cotacaoProvider: CotacaoProvider
+    private configProvider: ConfigProvider
 
   ) {
     let config = configProvider.getConfigData();

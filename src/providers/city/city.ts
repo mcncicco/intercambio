@@ -53,4 +53,12 @@ export class CityProvider {
     return this.db.object(this.PATH_COUNTRIES + key);
   }
 
+  getCityTemp(code:string){
+    
+    return this.http.get("http://apiadvisor.climatempo.com.br/api/v1/weather/locale/"+code+"/current?token=070bef5d782703caaf643ddec6c38f43");
+  }
+  getCityCode(city:string){
+    return this.http.get("http://apiadvisor.climatempo.com.br/api/v1/locale/city?name="+city+"&token=070bef5d782703caaf643ddec6c38f43");
+  }
+
 }

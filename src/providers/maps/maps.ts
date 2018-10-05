@@ -14,6 +14,7 @@ export class MapsProvider {
   private PATH = 'localizacao/';
   private PATH_CITIES = 'cidades/';
   private PATH_UPDATE_HOUR = 'cidades/';
+  private PATH_UPDATE_TEMP = 'cidades/';
   private PATH_UPDATE_COTACAO = 'paises/';
 
   constructor(private db: AngularFireDatabase) {
@@ -58,6 +59,17 @@ export class MapsProvider {
         { hour: hour })
         .then(() => resolve())
         .catch((e) => reject(e));
+
+    })
+  }
+  saveTemp(key:string, temp:string) {
+    return new Promise((resolve, reject) => {
+      this.db.list(this.PATH_UPDATE_TEMP)
+        .update(key, 
+        { temp: temp })
+        .then(() => resolve())
+        .catch((e) => reject(e));
+        
 
     })
   }
