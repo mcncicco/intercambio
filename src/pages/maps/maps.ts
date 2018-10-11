@@ -81,7 +81,7 @@ export class MapsPage {
 
   addCity() {
     console.log("addCity");
-    
+
     this.map.addMarker({
       title: this.localizacao.nomeCidade,
       icon: 'place',
@@ -98,7 +98,7 @@ export class MapsPage {
   }
 
   addCluster() {
-    console.log("T"+this.locations.length);
+    console.log("T" + this.locations.length);
     this.map.addMarkerCluster({
       markers: this.locations,
       icons: [
@@ -110,7 +110,7 @@ export class MapsPage {
           let latLng: LatLng = marker[0];
           let markerClick: Marker = marker[1];
           let emailUsuario: string = markerClick.getTitle();
-          
+
           this.navCtrl.push(PersonPage, { emailUsuario });
 
         });
@@ -126,12 +126,13 @@ export class MapsPage {
       this.locations = new Array<any>();
       items.forEach(item => {
 
-        this.locations.push({ 
-          position: { lat: Number(item.latitude.toFixed(1)), lng: Number(item.longitude.toFixed(1)) }, 
-          title: item.email, 
-          label: item.displayName, 
-          icon: { url: item.photoUrl, size:new google.maps.Size(25,25)},
-          shape:{type:'circle'}});
+        this.locations.push({
+          position: { lat: Number(item.latitude.toFixed(1)), lng: Number(item.longitude.toFixed(1)) },
+          title: item.email,
+          label: item.displayName,
+          icon: { url: item.photoUrl, size: new google.maps.Size(25, 25) },
+          shape: { type: 'circle' }
+        });
 
         this.latSum = this.latSum + item.latitude;
         this.lngSum = this.lngSum + item.longitude;
@@ -156,11 +157,11 @@ export class MapsPage {
   savePosition(latitude: number, longitude: number) {
     console.log("save");
     let config = this.configProvider.getConfigData();
-   
+
     this.localizacao = new Localizacao();
     this.localizacao.email = JSON.parse(config).email;
     this.localizacao.photoUrl = JSON.parse(config).photoUrl;
-    
+
     //this.localizacao.displayName = JSON.parse(config).displayName;
     this.localizacao.latitude = latitude;
     this.localizacao.longitude = longitude;
@@ -172,42 +173,27 @@ export class MapsPage {
     console.log("setCities");
     console.log("E");
     this.cityProvider.getAllCities().subscribe(items => {
-      
+
       items.forEach(item => {
-        
-        
+
+
         console.log(item);
-        
+
         console.log(item.$key);
 
-        this.cityProvider.getAllCitiesByCountry(item.$key+"/").subscribe(cidades => {
+        this.cityProvider.getAllCitiesByCountry(item.$key + "/").subscribe(cidades => {
           cidades.forEach(c => {
-          this.location = new LatLng(c.latitude, c.longitude);
-        this.localizacao = new Localizacao();
-        this.localizacao.location = this.location;
-        this.localizacao.nomeCidade = c.nome;
+            this.location = new LatLng(c.latitude, c.longitude);
+            this.localizacao = new Localizacao();
+            this.localizacao.location = this.location;
+            this.localizacao.nomeCidade = c.nome;
 
-        this.addCity();
+            this.addCity();
+          });
         });
-});
-
-        
-        
-
-        
-        
-
-
-        
 
 
 
-        /*this.location = new LatLng(response.$key.latitude, response.$key.longitude);
-        this.localizacao = new Localizacao();
-        this.localizacao.location = this.location;
-        this.localizacao.nomeCidade = response.$key.nome;
-
-        this.addCity();*/
       });
     });
 
