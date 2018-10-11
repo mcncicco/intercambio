@@ -15,7 +15,9 @@ export class ChatPage {
   
   chats = [];
   roomkey:string;
-  nickname:string;
+  roomname:string;
+  displayName:string;
+  userEmail:string;
   offStatus:boolean = false;
 
   ref = firebase.database().ref('chatrooms/');
@@ -32,13 +34,19 @@ export class ChatPage {
     let config = configProvider.getConfigData();
     
     this.roomkey = this.navParams.get("key") as string;
+    this.roomname = this.navParams.get("roomname") as string;
+    this.displayName = this.navParams.get("nickname") as string;
     
+    console.log(this.roomkey);
+    console.log(this.roomname);
+    console.log(this.displayName);
     this.addRoom();
     //this.joinRoom(this.roomkey);
     console.log("ChatPage"+this.roomkey);
-    this.nickname = JSON.parse(config).email;
+    this.userEmail = JSON.parse(config).email;
+    this.displayName = JSON.parse(config).displayName;
     this.data.type = 'message';
-    this.data.nickname = this.nickname;
+    this.data.nickname = this.displayName;
  
     /*let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
     joinData.set({
@@ -87,7 +95,7 @@ export class ChatPage {
     this.offStatus = true;
   
     this.navCtrl.setRoot(RoomPage, {
-      nickname:this.nickname
+      nickname:this.displayName
     });
   }
   
@@ -107,10 +115,8 @@ export class ChatPage {
   addRoom() {
     let newData = this.ref.child(this.roomkey);
     newData.update({
-      roomname:this.roomkey
+      roomname:this.roomname
     });
-    let roomname = this.roomkey
-    
   }
   
 

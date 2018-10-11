@@ -47,13 +47,15 @@ export class PersonPage {
       
   }
   joinChatUser(){
-    let roomKey;
+    let roomkey;
+    let roomname;
     if(this.chatUserEmail.length <= this.user.email.length){
-      roomKey = this.chatUserEmail.replace("@", "_a_").replace(".", "_p_")+this.user.email.replace("@", "_a_").replace(".", "_p_");
+      roomkey = this.chatUserEmail.replace("@", "_a_").replace(".", "_p_")+this.user.email.replace("@", "_a_").replace(".", "_p_");
     }else{
-      roomKey = this.user.email.replace("@", "_a_").replace(".", "_p_")+this.chatUserEmail.replace("@", "_a_").replace(".", "_p_");
+      roomkey = this.user.email.replace("@", "_a_").replace(".", "_p_")+this.chatUserEmail.replace("@", "_a_").replace(".", "_p_");
     }
-    this.navCtrl.push(ChatPage, {roomKey});
+    roomname = this.chatUser.displayName;
+    this.navCtrl.push(ChatPage, {roomkey, roomname});
   }
 
   ionViewDidLoad() {

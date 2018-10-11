@@ -17,7 +17,8 @@ export class RoomPage {
 
   rooms = [];
   ref = firebase.database().ref('chatrooms/');
-  nickname:string;
+  displayName:string;
+  userEmail:string;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private configProvider: ConfigProvider) {
@@ -27,15 +28,29 @@ export class RoomPage {
       this.rooms = [];
       this.rooms = snapshotToArray(resp);
     });
-    console.log(this.navParams.get("roomname"));
+    
     if(this.navParams.get("roomname")){
-      this.joinRoom(this.navParams.get("roomname"));
+      this.joinRoom(this.navParams.get("key"), this.navParams.get("roomname"));
     }
     let config = this.configProvider.getConfigData();
-    this.nickname = JSON.parse(config).email.replace("@", "_a_").replace(".", "_p_");
+    this.userEmail = JSON.parse(config).email.replace("@", "_a_").replace(".", "_p_");
+    this.displayName = JSON.parse(config).displayName.replace("@", "_a_").replace(".", "_p_");
     
   }
   
+  joinRoom(key, roomname) {
+    console.log("joinromm"+key);
+    console.log("roomname"+roomname);
+    let config = this.configProvider.getConfigData();
+    this.displayName = JSON.parse(config).displayName.replace("@", "_a_").replace(".", "_p_");
+    
+    this.navCtrl.push(ChatPage, {
+      key:key,
+      roomname:roomname,
+      nickname:this.displayName
+    });
+    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RoomPage');
@@ -45,18 +60,6 @@ export class RoomPage {
   }
   addRoom() {
     this.navCtrl.push(AddRoomPage);
-  }
-
-  joinRoom(key) {
-    console.log("joinromm"+key);
-    let config = this.configProvider.getConfigData();
-    this.nickname = JSON.parse(config).email.replace("@", "_a_").replace(".", "_p_");
-    console.log("joinromm"+this.nickname);
-    this.navCtrl.push(ChatPage, {
-      key:key,
-      nickname:this.nickname
-    });
-    console.log("joinromm"+key);
   }
 
 }

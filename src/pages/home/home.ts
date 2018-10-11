@@ -47,7 +47,8 @@ export class HomePage {
   }
   joinChat(key:string){
     console.log("joinChat");
-    this.navCtrl.push(ChatPage, {key});
+    let roomname = key; 
+    this.navCtrl.push(ChatPage, {key, roomname});
   }
 
   verNoMapa(nomeCidade:string) {
