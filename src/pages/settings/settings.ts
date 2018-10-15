@@ -33,24 +33,24 @@ export class SettingsPage {
   }
   ionViewDidEnter() {
     console.log('ionViewDidEnter SettingsPage');
-    setTimeout(() => { this.getHourDublin() }, 1000);
-    setTimeout(() => { this.getHourLondres() }, 2000);
-    setTimeout(() => { this.getHourNewYork() }, 3000);
-    setTimeout(() => { this.getHourSaoFrancisco() }, 4000);
-    setTimeout(() => { this.getHourSydney() }, 5000);
-    setTimeout(() => { this.getHourToronto() }, 6000);
-    setTimeout(() => { this.getHourValeta() }, 7000);
-    setTimeout(() => { this.getHourVancouver() }, 8000);
-    setTimeout(() => { this.getHourSanDiego() }, 9000);
-    setTimeout(() => { this.getHourMadri() }, 10000);
-    setTimeout(() => { this.getHourBarcelona() }, 11000);
-    setTimeout(() => { this.getHourBoston() }, 12000);
+    setTimeout(() => { this.getHourDublin() }, 10000);
+    setTimeout(() => { this.getHourLondres() }, 20000);
+    setTimeout(() => { this.getHourNewYork() }, 30000);
+    setTimeout(() => { this.getHourSaoFrancisco() }, 40000);
+    setTimeout(() => { this.getHourSydney() }, 50000);
+    setTimeout(() => { this.getHourToronto() }, 60000);
+    setTimeout(() => { this.getHourValeta() }, 70000);
+    setTimeout(() => { this.getHourVancouver() }, 80000);
+    setTimeout(() => { this.getHourSanDiego() }, 90000);
+    setTimeout(() => { this.getHourMadri() }, 100000);
+    setTimeout(() => { this.getHourBarcelona() }, 110000);
+    setTimeout(() => { this.getHourBoston() }, 120000);
 
-    setTimeout(() => { this.getCotacaoCAN() }, 9000);
-    setTimeout(() => { this.getCotacaoENG() }, 10000);
-    setTimeout(() => { this.getCotacaoEUA() }, 11000);
-    setTimeout(() => { this.getCotacaoIRL() }, 12000);
-    setTimeout(() => { this.getCotacaoMAL() }, 13000);
+    setTimeout(() => { this.getCotacaoCAN() }, 90000);
+    setTimeout(() => { this.getCotacaoENG() }, 100000);
+    setTimeout(() => { this.getCotacaoEUA() }, 110000);
+    setTimeout(() => { this.getCotacaoIRL() }, 120000);
+    setTimeout(() => { this.getCotacaoMAL() }, 130000);
 
   }
 

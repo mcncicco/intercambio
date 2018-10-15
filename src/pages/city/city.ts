@@ -20,12 +20,15 @@ export class CityPage {
   public listCities = new Array<any>();
   public nomeCidade;
   public siglaCountry;
+  public minutes;
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    private cityProvider: CityProvider,
+    private cityProvider: CityProvider
   ) {
       this.nomeCidade = navParams.get('nomeCidade');
       console.log(this.nomeCidade);
+      
       this.getCity();
       
   }
@@ -33,6 +36,14 @@ export class CityPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CityPage');
   }
+  ionViewDidEnter() {
+    var minutes = new Date().getMinutes();
+      if (this.minutes < 10) {
+        this.minutes = "0" + this.minutes;
+      }
+      console.log("Minutos"+this.minutes);
+  }
+  
 
   getCity() {
     

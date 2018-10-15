@@ -30,10 +30,12 @@ export class MyApp {
       if(user){
         console.log("2");
         let userLocal = new User();
+        console.log(user);
+        console.log(user.email);
         if(user.email){
           userLocal.email = user.email;
         }
-        
+        console.log(userLocal);
         configProvider.setConfigData(false, userLocal);
         this.rootPage = TabsPage;
         authObserver.unsubscribe();

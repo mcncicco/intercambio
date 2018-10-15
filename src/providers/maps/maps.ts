@@ -56,7 +56,7 @@ export class MapsProvider {
     return new Promise((resolve, reject) => {
       this.db.list(this.PATH_UPDATE_HOUR)
         .update(key, 
-        { hour: hour })
+        { hour: hour.split(":")[0] })
         .then(() => resolve())
         .catch((e) => reject(e));
 

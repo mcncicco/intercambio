@@ -21,6 +21,9 @@ export class CountryPage {
   public nomeCountry;
   public nomeCidade;
   public siglaCountry;
+  public minutes;
+
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private cityProvider: CityProvider,
@@ -40,6 +43,17 @@ export class CountryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CountryPage');
+  }
+
+  ionViewDidEnter() {
+    var minutes = new Date().getMinutes();
+    
+      if (minutes < 10) {
+        this.minutes = "0" + minutes;
+      }else{
+        this.minutes = minutes;
+      }
+      
   }
 
   getCities() {
