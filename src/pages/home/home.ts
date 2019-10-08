@@ -13,6 +13,7 @@ import { User } from '../../providers/user/user';
 import { ConfigProvider } from '../../providers/auth-service/config';
 import { AddRoomPage } from '../add-room/add-room';
 import { CountryPage } from '../country/country';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'page-home',
@@ -109,7 +110,49 @@ export class HomePage {
   ionViewDidEnter() {
     this.getCities();
     this.getCountries();
+    this.getAllCities();
+
     console.log("HomePage");
+  }
+
+  getAllCities() {
+
+    
+
+    this.cityProvider.getAllCities().subscribe(items => {
+
+      items.forEach(item => {
+
+
+        console.log(item);
+
+        console.log(item.$key);
+
+        this.cityProvider.getAllCitiesByCountry(item.$key + "/").subscribe(cidades => {
+          cidades.forEach(c => {
+
+            let data = firebase.database().ref('user/'+this.user.email.replace("@", "_a_").replace(".", "_p_")+'/cities/'+c.nome);
+
+            data.set({
+              nome:c.nome,
+              checked:true,
+              pais:c.pais,
+              sendDate:Date()
+            });
+
+    
+      
+            
+          });
+        });
+
+
+
+      });
+    });
+    
+
+
   }
 
 

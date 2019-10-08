@@ -10,6 +10,8 @@ export class CityProvider {
 
   private PATH_CITIES = 'cidades/';
   private PATH_COUNTRIES = 'paises/';
+  private PATH_USER = 'user/';
+
 
   
   constructor(public http: HttpClient,
@@ -36,6 +38,12 @@ export class CityProvider {
     console.log(this.PATH_CITIES + countryKey);
    return this.db.list(this.PATH_CITIES+countryKey);
   }
+  getAllCitiesByUser(userKey: string) {
+    console.log("countryKey"); 
+    console.log(this.PATH_USER);
+    console.log(this.PATH_USER+userKey+"/cities/");
+   return this.db.list(this.PATH_USER+userKey+"/cities/");
+  }
 
   getCity(key: string) {
     console.log(this.PATH_CITIES + key);
@@ -43,6 +51,9 @@ export class CityProvider {
   }
   getCities(key: string) {
     return this.db.list(this.PATH_CITIES + key);
+  }
+  getCitiesPerUser(key: string) {
+    return this.db.list(this.PATH_USER + key);
   }
   getAllCountries() {
     console.log("GETALLCITIES"); 
