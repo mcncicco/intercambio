@@ -8,6 +8,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -44,6 +45,7 @@ import { AddRoomPage } from '../pages/add-room/add-room';
 import { ChatPage } from '../pages/chat/chat';
 import { SettingsPage } from '../pages/settings/settings';
 import { CountryPage } from '../pages/country/country';
+import { PagesCheckCidadesPage } from '../pages/pages-check-cidades/pages-check-cidades';
 
 
 const firebaseConfig = {
@@ -72,7 +74,8 @@ const firebaseConfig = {
     RoomPage,
     AddRoomPage,
     ChatPage,
-    SettingsPage
+    SettingsPage,
+    PagesCheckCidadesPage
     
   ],
   imports: [
@@ -100,7 +103,8 @@ const firebaseConfig = {
     RoomPage,
     AddRoomPage,
     ChatPage,
-    SettingsPage
+    SettingsPage,
+    PagesCheckCidadesPage
   ],
   providers: [
     StatusBar,
